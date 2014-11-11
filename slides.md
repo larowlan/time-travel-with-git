@@ -78,6 +78,14 @@ Note:
 
 ## Find something
 
+--
+
+## Use the tools
+
+- Issue queue search
+- RSS feed
+- ![](https://www.dropbox.com/s/13iuzvro22pet96/Screenshot%202014-11-11%2010.17.50.png?dl=1)
+
 ---
 
 ## Git and patch workflows
