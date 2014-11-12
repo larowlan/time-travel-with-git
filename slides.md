@@ -41,7 +41,7 @@ Note:
 
 ## Step 3 - Observe
 
-![](/images/watch.jpg)
+![](./images/watch.jpg)
 
 Source:http://bit.ly/1zHPFfq
 
