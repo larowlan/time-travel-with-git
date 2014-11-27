@@ -150,6 +150,16 @@ Note:
 
 --
 
+## Call out inappropriate behaviour
+
+- Silence = acceptance
+- [Constructive feedback](https://www.drupal.org/constructive-feedback)
+
+Note:
+- Explain process
+
+--
+
 ## Don't forget language barriers
 
 Note:
@@ -169,6 +179,7 @@ Note:
 Note:
 
 - What will come? re-rolls, reviews, new-patches, feedback, commit mentions
+- https://www.drupal.org/node/1821620
 
 --
 
@@ -309,6 +320,8 @@ Note:
 
 ## Automation > remembering stuff
 
+@todo put some examples here
+
 Note:
 
 - Simpletest commands
@@ -343,6 +356,14 @@ Note:
 --
 
 ## Sleep easier
+
+---
+
+# Resources
+
+- CoC
+- Gabor gmail
+@todo
 
 ---
 
