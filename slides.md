@@ -4,9 +4,8 @@
 
 Lee Rowlands
 
-
-twitter/[@larowlan](https://twitter.com/larowlan)
 drupal.org/u/[larowlan](https://drupal.org/u/larowlan)
+twitter/[@larowlan](https://twitter.com/larowlan)
 
 ---
 
@@ -15,12 +14,13 @@ drupal.org/u/[larowlan](https://drupal.org/u/larowlan)
 Note:
 
 - Start slow
+- Don't have a drupal.org account - get one now! user/register
 
 --
 
 ## First step - watch an issue
 
-![Follow button](https://www.dropbox.com/s/pmwxa32cbs6u2s9/Screenshot%202014-11-11%2008.47.50.png?dl=1)
+![Follow button](./images/follow.png)
 
 Note:
 
@@ -30,8 +30,8 @@ Note:
 
 ## Step 2 - setup email <br/>notifications
 
-![Email notifications](https://www.dropbox.com/s/2bc051dcda5z6g2/Screenshot%202014-11-11%2008.50.09.png?dl=1)
-![Issues you follow](https://www.dropbox.com/s/d7pdbu1mhr8r0u2/Screenshot%202014-11-11%2008.50.37.png?dl=1)
+![Email notifications](./images/notify.png)
+![Issues you follow](./images/issues-you-follow.png)
 
 Note:
 
@@ -84,7 +84,23 @@ Note:
 
 - Issue queue search
 - RSS feed
-- ![](https://www.dropbox.com/s/13iuzvro22pet96/Screenshot%202014-11-11%2010.17.50.png?dl=1)
+- ![](./images/rss-feed.png)
+
+--
+
+## Find what works for you
+
+--
+
+## I use Gmail tags
+
+![](./images/tagged.png)
+
+--
+
+## Find something that suits my mood
+
+![](./images/tags.png)
 
 ---
 
@@ -94,13 +110,13 @@ Note:
 
 ## One branch per issue
 
-![](https://www.dropbox.com/s/hf9r8rqpcqnad7i/Screenshot%202014-11-11%2009.37.22.png?dl=1)
+![](./images/git-branches.png)
 
 --
 
 ## Commit your patches locally
 
-![](https://www.dropbox.com/s/n58lb01mkm7it0g/Screenshot%202014-11-11%2009.38.41.png?dl=1)
+![](./images/commit-local.png)
 
 --
 
@@ -150,13 +166,14 @@ Note:
 
 --
 
-## Call out inappropriate behaviour
+## Call out inappropriate<br/>behaviour
 
 - Silence = acceptance
 - [Constructive feedback](https://www.drupal.org/constructive-feedback)
 
 Note:
 - Explain process
+- Yeah there's a u in that
 
 --
 
@@ -167,6 +184,15 @@ Note:
 - Not everyone speaks English as their first language
 - Don't take offence at language quirks
 - Be prepared to explain local slang and lingo
+
+--
+
+## Switch off
+
+Note:
+
+- Best way to avoid burnout is drift in and out
+- Have a live outside Drupal
 
 ---
 
@@ -210,6 +236,10 @@ Note:
 ## Development approaches
 
 - [A tale of two developers](http://webchick.net/embrace-the-chaos)
+
+Note:
+
+- embrace the chaos
 
 --
 
@@ -320,7 +350,9 @@ Note:
 
 ## Automation > remembering stuff
 
-@todo put some examples here
+- phing simpletest:class
+- phing reinstall
+- https://github.com/nickschuch/vd8/blob/master/build.xml
 
 Note:
 
@@ -336,6 +368,7 @@ Note:
 - git merge8x
 - git genpatch {number}
 - git fetchpatch {url}
+- https://gist.github.com/larowlan/18624d5554c52e90c613
 
 ---
 
@@ -361,9 +394,9 @@ Note:
 
 # Resources
 
-- CoC
-- Gabor gmail
-@todo
+- http://hojtsy.hu/blog/2014-jun-24/how-manage-drupalorg-issues-according-your-priorities
+- http://drupal.org/dcoc
+- http://randyfay.com/content/what-can-drupal-community-do-about-burnout
 
 ---
 
