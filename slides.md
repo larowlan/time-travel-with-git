@@ -397,6 +397,7 @@ Note:
 - http://hojtsy.hu/blog/2014-jun-24/how-manage-drupalorg-issues-according-your-priorities
 - http://drupal.org/dcoc
 - http://randyfay.com/content/what-can-drupal-community-do-about-burnout
+- http://sydney2013.drupal.org/show-me-tests-writing-automated-tests-drupal
 
 ---
 
