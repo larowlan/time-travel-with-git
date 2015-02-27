@@ -9,6 +9,54 @@ twitter/[@larowlan](https://twitter.com/larowlan)
 
 ---
 
+## Where it all starts
+
+--
+
+## Register
+
+![](./images/register.png) 
+
+Note:
+
+- if you don't have an account, get one now, even if you don't want to comment
+- I wish I had have registered earlier - waited until I needed to post a patch
+
+--
+
+## Get on IRC
+ 
+![](./images/irc.png)
+
+--
+
+## Where to say hi
+
+- \#drupal-au
+- \#drupal-contribute
+
+Note:
+
+- I was a freelancer for many years sime told me to get on drupalau
+- window to the community
+
+--
+
+## IRC Resources
+
+- drupal.org/irc
+
+--
+
+## IRC Clients
+
+- pidgin
+- limechat
+- adium
+- web client on freenode
+
+---
+
 ## Negotiating issue queues
 
 Note:
@@ -153,6 +201,17 @@ Note:
 - Avoid being the victim
 - Avoid being the persecutor
 - Avoid being the rescuer
+
+--
+
+# Sometimes...
+
+![](./images/jerks.jpg)
+
+Source:http://www.vh1.com/celebrity/bwe/images/2011/06/Stop-That-Mr-Simpson-1308333673.jpg
+
+Note:
+- Sometimes people are just jerks.
 
 --
 
