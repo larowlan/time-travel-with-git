@@ -58,6 +58,8 @@ Note:
 
 ![](./images/window.png)
 
+Source: https://deadhomersociety.files.wordpress.com/2012/02/kingsizehomer8.png
+
 Note:
 
 - IRC is window to the community
