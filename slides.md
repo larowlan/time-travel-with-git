@@ -9,6 +9,26 @@ twitter/[@larowlan](https://twitter.com/larowlan)
 
 ---
 
+## The who slide
+
+![](./images/who.jpg)
+
+
+Source: http://alldylan.com/wp-content/uploads/2013/05/The+Who.jpg
+
+Note:
+
+- I was told my second slide should be the who slide
+- maintain 4 modules in core
+- near 350 commit mentions in d8
+- number 12 contributor to d8
+- sec team
+- senior drupal dev at pnx
+- doing this since 2008
+- frustration with d7 changes as catalyst
+
+---
+
 ## Where it all starts
 
 --
@@ -21,6 +41,26 @@ Note:
 
 - if you don't have an account, get one now, even if you don't want to comment
 - I wish I had have registered earlier - waited until I needed to post a patch
+
+--
+
+## What is Drupal?
+
+Note:
+
+- content modelling
+- cms
+- the community
+
+--
+
+## Are you missing 33%?
+
+![](./images/window.png)
+
+Note:
+
+- IRC is window to the community
 
 --
 
@@ -189,7 +229,7 @@ Note:
 
 --
 
-## Don't feed the trolls
+## Sleep on it
 
 --
 
@@ -464,7 +504,7 @@ Note:
 
 ---
 
-## Thank you!
+## See you at the sprint
 
 <larowlan@previousnext.com.au>
 
