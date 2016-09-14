@@ -1,513 +1,255 @@
-# Contributing <br/>to core
+# testing in D8
 
-## Without losing your mind
-
-Lee Rowlands
-
-drupal.org/u/[larowlan](https://drupal.org/u/larowlan)
-twitter/[@larowlan](https://twitter.com/larowlan)
+## fast and reliable
 
 ---
 
-## The who slide
+> New test features are the best bit of Drupal8 - larowlan
 
-![](./images/who.jpg)
+--
 
-
-Source: http://alldylan.com/wp-content/uploads/2013/05/The+Who.jpg
-
-Note:
-
-- I was told my second slide should be the who slide
-- maintain 4 modules in core
-- near 350 commit mentions in d8
-- number 12 contributor to d8
-- sec team
-- senior drupal dev at pnx
-- doing this since 2008
-- frustration with d7 changes as catalyst
+> I agree - benjy
 
 ---
 
-## Where it all starts
+## The layers
 
---
-
-## Register
-
-![](./images/register.png) 
-
-Note:
-
-- if you don't have an account, get one now, even if you don't want to comment
-- I wish I had have registered earlier - waited until I needed to post a patch
-
---
-
-## What is Drupal?
-
-Note:
-
-- content modelling
-- cms
-- the community
-
---
-
-## Are you missing 33%?
-
-![](./images/window.png)
-
-Source: https://deadhomersociety.files.wordpress.com/2012/02/kingsizehomer8.png
-
-Note:
-
-- IRC is window to the community
-
---
-
-## Get on IRC
- 
-![](./images/irc.png)
-
---
-
-## Where to say hi
-
-- \#drupal-au
-- \#drupal-contribute
-
-Note:
-
-- I was a freelancer for many years sime told me to get on drupalau
-- window to the community
-
---
-
-## IRC Resources
-
-- drupal.org/irc
-
---
-
-## IRC Clients
-
-- pidgin
-- limechat
-- adium
-- web client on freenode
+![](./images/cake.jpg)
 
 ---
 
-## Negotiating issue queues
-
-Note:
-
-- Start slow
-- Don't have a drupal.org account - get one now! user/register
+## PHPUnit
 
 --
 
-## First step - watch an issue
-
-![Follow button](./images/follow.png)
-
-Note:
-
-- Start by watching issues
+## Fast
 
 --
 
-## Step 2 - setup email <br/>notifications
-
-![Email notifications](./images/notify.png)
-![Issues you follow](./images/issues-you-follow.png)
-
-Note:
-
-- Make sure your email settings are sane
+## Forces better design
 
 --
 
-## Step 3 - Observe
-
-![](./images/watch.jpg)
-
-Source:http://bit.ly/1zHPFfq
+## Force decoupling
 
 --
 
-## Step 4 - Absorb
+## Where we've used it well
 
-Note:
+- ACCC Lib
+- Police Lib
 
-- Get to know the personalities
-- Observe the interactions and process
+--
+
+## Planning for decoupled
+
+--
+
+## Composer solves the separate repo issue
 
 ---
 
-## Finding your niche
+## KernelTestBase
 
 --
 
-## Scratch an itch
+## Tests run against boostrapped site
 
 --
 
-## Find something that <br/>annoys you
+## Drupal is not installed
 
 --
 
-## Find something that <br/>*you* care about
+## You need to install schemas etc
 
 --
 
-## Find something <br/>*no-one* cares about
+## Fast
 
 --
 
-## Find something
+## Don't need to mock the universe
 
 --
 
-## Use the tools
+## No browser*
 
-- Issue queue search
-- RSS feed
-- ![](./images/rss-feed.png)
+* *you can test controller behaviour though
 
 --
 
-## Find what works for you
+## Example projects
+
+* WCC
+* Amaysim
 
 --
 
-## I use Gmail tags
-
-![](./images/tagged.png)
-
---
-
-## Find something that suits my mood
-
-![](./images/tags.png)
+## Ideal for TDD
 
 ---
 
-## Git and patch workflows
+## BrowserTestBase
 
 --
 
-## One branch per issue
-
-![](./images/git-branches.png)
+## A Guzzle powered browser
 
 --
 
-## Commit your patches locally
-
-![](./images/commit-local.png)
+## Submit forms
 
 --
 
-## Everything is easier
+## Interact with the page
 
-- **interdiff** > git diff > interdiff.txt
-- **re-roll** > git fetch origin && git merge origin/8.0.x
-- **patches** > git diff origin/8.0.x > some-file.patch
-- **applying** > curl http://drupal.org/files/some-file.patch | git apply
+--
+
+## Installs Drupal
+
+--
+
+## Too slow
+
+* 2 minutes for a test
+
+--
+
+## Example projects
+
+* too slow - none
 
 ---
 
-## Dealing with politics and <br/>personalities
+## {ProjectName}TestBase
 
 --
 
-## Egos are big
+## BrowserTestBase without setup
 
 --
 
-## Stakes are high
+## Runs against installed site
 
 --
 
-## Sleep on it
+## Fast
+
+* < 20 seconds for large test
 
 --
 
-## Don't get drawn into the <br/>Karpman Drama Triangle
+## You need to do cleanup
 
-[Sad it has a name](http://en.wikipedia.org/wiki/Karpman_drama_triangle)
-
-Note:
-- Avoid being the victim
-- Avoid being the persecutor
-- Avoid being the rescuer
+* Avoid leaking between tests
+* (No different to behat)
 
 --
 
-# Sometimes...
-
-![](./images/jerks.jpg)
-
-Source:http://www.vh1.com/celebrity/bwe/images/2011/06/Stop-That-Mr-Simpson-1308333673.jpg
-
-Note:
-- Sometimes people are just jerks.
+## Goodbye Behat
 
 --
 
-## Ask questions when unsure
+## Good riddance
 
 --
 
-## Real-time communications <br/> &gt; issue queues
+## Example projects
 
-- Solving things much easier on IRC.
-
---
-
-## Call out inappropriate<br/>behaviour
-
-- Silence = acceptance
-- [Constructive feedback](https://www.drupal.org/constructive-feedback)
-
-Note:
-- Explain process
-- Yeah there's a u in that
-
---
-
-## Don't forget language barriers
-
-Note:
-
-- Not everyone speaks English as their first language
-- Don't take offence at language quirks
-- Be prepared to explain local slang and lingo
-
---
-
-## Switch off
-
-Note:
-
-- Best way to avoid burnout is drift in and out
-- Have a live outside Drupal
+* Amaysim
+* WCC
 
 ---
 
-## Not sweating details
+### JavascriptTestBase
 
 --
 
-## If you patch it, they will come
-
-Note:
-
-- What will come? re-rolls, reviews, new-patches, feedback, commit mentions
-- https://www.drupal.org/node/1821620
+## PhantomsJS powered browser
 
 --
 
-## Review trades
-
-Note:
-
-- Everyone has their own pet issues
+## Functional Javascript tests
 
 --
 
-## A broken patch is better than none
-
-Note:
-
-- It doesn't have to be perfect
+## Timing is everything
 
 --
 
-## Magic fairies in the night
+## Works well on client projects
 
-Note:
+--
 
-- Timezones have some benefits
+## Example projects
+
+* Amaysim
 
 ---
 
-## Development approaches
-
-- [A tale of two developers](http://webchick.net/embrace-the-chaos)
-
-Note:
-
-- embrace the chaos
+## {ProjectName}JavaScriptTestBase
 
 --
 
-## Sloppy Sam
-
-Note:
-
-- Asks on IRC if anyone knows about it
-- Follows leads from community
-- Puts up half-baked patch
-- Learns from reviews
-- Reviews others work
-- Rapid increments
-
---
-
-## Perfectionist Pat
-
-Note:
-
-- First patch is perfect
-- Works in isolation
-- Slow feedback loop
-- Concerned about perceptions
-- Fails to build karma/reputation
+## Same again
 
 ---
 
-## Learning through reviews
+## Mocha
 
 --
 
-## Core is vast
+## Same as PHPUnit
+
+* But for Javascript
 
 --
 
-## You cannot know everything
+## Forces decoupled design
 
 --
 
-## Seriously
+##Fast
+
+![](./images/mocha.png)
 
 --
 
-## Reviewers teach as they review
+## Example projects
 
---
-
-## Reviewers learn as they go
-
---
-
-## Explore new areas as <br/>a reviewer
-
---
-
-## Learn new techniques as <br/>a reviewee
-
---
-
-## Get a free CS education
+* ACCC consumer
 
 ---
 
-## Building networks and <br/>friendships
+## Us
 
 --
 
-## How do you know who <br/>handles *X*?
+## We should
+
+* Allow for tests in estimate
+* Write them first
+* Favour fast tests
+* Share recipes
 
 --
 
-## Maintainers.txt
+## Point of difference
 
 --
 
-## From observation
+## Premimum === Quality
 
 --
 
-## Ask on IRC
+## Walk the walk
 
 --
 
-## Build networks
+## Wins
 
---
+* Contrib bugs
+* One project failing
+* Refactoring
 
-## Build karma
-
---
-
-## Build respect
-
---
-
-## Build comrades
-
---
-
-## Build friends
-
----
-
-## Automating your processes with phing
-
---
-
-## Automation > remembering stuff
-
-- phing simpletest:class
-- phing reinstall
-- https://github.com/nickschuch/vd8/blob/master/build.xml
-
-Note:
-
-- Simpletest commands
-- Reinstall
-- PHP Unit testing
-
---
-
-## Git aliases
-
-- git interdiff
-- git merge8x
-- git genpatch {number}
-- git fetchpatch {url}
-- https://gist.github.com/larowlan/18624d5554c52e90c613
-
----
-
-## Automated tests
-
---
-
-## Don't be afraid
-
---
-
-## Become a better developer
-
---
-
-## Transfer skills learned to dayjob
-
---
-
-## Sleep easier
-
----
-
-# Resources
-
-- http://hojtsy.hu/blog/2014-jun-24/how-manage-drupalorg-issues-according-your-priorities
-- http://drupal.org/dcoc
-- http://randyfay.com/content/what-can-drupal-community-do-about-burnout
-- http://sydney2013.drupal.org/show-me-tests-writing-automated-tests-drupal
-
----
-
-# Questions?
-
----
-
-## See you at the sprint
-
-<larowlan@previousnext.com.au>
-
-[@larowlan](https://twitter.com/larowlan)
