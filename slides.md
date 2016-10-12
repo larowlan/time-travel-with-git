@@ -2,6 +2,10 @@
 
 ## At 16 years of age,<br> does Drupal have an <br>identity problem?
 
+Note:
+
+- growing pains expected
+
 --
 
 # Yes
@@ -51,9 +55,9 @@ Note:
 
 Note:
 
+- 8 years of Drupal
 - 450+ core patches
 - Maintain 4 core modules
-- 8 years of Drupal
 - 40+ contrib modules
 - security team member
 - senior drupal dev at @pnx
@@ -301,19 +305,24 @@ Note:
 
 <!-- .slide: data-background="/images/house2.jpg"-->
 
-## What you from standard profile
+## What you get from<br>standard profile
 
 Note:
 
-- we end up with an arms race
 - because we're trying to solve everything generically
 - we do nothing well
 - jack of all trades, master of none
 - the need to compete - feature list showdowns
+- we end up with an arms race - throw..
 
 --
 
 ## So we throw more modules at the problem
+
+Note:
+
+- product x has feature y, we need to compete
+- but that comes at a cost
 
 --
 
@@ -328,7 +337,7 @@ Note:
 Note:
 
 - Drupal 8 5 years
-- Core is where code goes to die (forum)
+- Core is where code goes to die (forum) 7 years old - is it relevant? nothing happened in 7 years?
 - Innovation is stalled
 - Contrib is where the innovation occurs
 
@@ -352,6 +361,7 @@ Note:
 
 - fluid apis
 - no guarantees 
+- migrate module api changes from 8.0 to 8.1 and 8.1 to 8.2 (within rights)
 - 12 months to solidify
 - history repeating? dashboard, overlay
 - does shifting sand give certainty
@@ -375,6 +385,8 @@ Note:
 
 Note:
 
+- as a maintainer do I spend time on CM or WBM? Patches need to be applied twice.
+- What advantage is there to having the module in core?
 - maintaining similar things in two places
 
 --
@@ -389,6 +401,7 @@ Note:
 - this week?
 - this month?
 - this year?
+- if you're an employer/agency whose primary business is drupal, are you giving employees time?
 
 --
 
@@ -397,6 +410,8 @@ Note:
 Note:
 
 - short tail 270/3750 > 20 - 41193 D8 issues
+- 128 if you use 50 as the trigger, 3%
+- 7% did most of the work
 - 270 people to resolve 41000 issues
 - No wonder D8 took 5 years
 - 11093 open issues against D8 (Oct 11)
@@ -404,7 +419,7 @@ Note:
 
 --
 
-## Are we on the verge of<br>another crisis?
+## History repeating?
 
 - http://bit.ly/2e9EcCw - The original post
 - http://bit.ly/2e9E3yR - Time capsule podcast
