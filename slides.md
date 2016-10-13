@@ -349,6 +349,7 @@ Note:
 
 - In honesty, looking at 8.1 and 8.2, semver killed small core
 - We have to have something to herald in each new release
+- Dries previews these at each Drupalcon Driesnote
 - Noone wants to download 8.x if all it includes are bug fixes
 - bugs aren't sexy
 - stability isn't sexy
@@ -453,7 +454,7 @@ To our identity problem
 
 Note:
 
-problems are:
+- recap
 - how to determine what goes in core
 - too much to maintain in core
 - core is slow
@@ -479,6 +480,7 @@ Note:
 - That shows people how to do things
 - That acts as a promotional tool
 - Farmers market user guide
+- theme flame, fixed scope, generic
 - Portfolio site
 - The iniative formerly known as Snowman
 
@@ -535,6 +537,13 @@ Note:
 # Now questions?
 
 *for real this time
+
+--
+
+# Links
+
+- Create experimental installation profile
+- https://www.drupal.org/node/2809635
 
 --
 
