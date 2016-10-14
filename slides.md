@@ -5,6 +5,7 @@
 Note:
 
 - growing pains expected
+- attempt to distill my incoherent ramblings from the last six months into something cohesive
 
 --
 
@@ -12,7 +13,7 @@ Note:
 
 --
 
-# Questions?
+# Let's discuss
 
 --
 
@@ -74,6 +75,10 @@ Note:
 --
 
 ## What is Drupal?
+
+Note: 
+
+- What is our identity
 
 --
 
@@ -167,6 +172,7 @@ Note:
 Note:
 
 - an ugly one
+- still undergoing metamorphis/evolving
 
 --
 
@@ -206,7 +212,7 @@ Note:
 
 - In reality, nobody
 - Yet we have a product manager
-- And we keep adding things to core
+- And we keep adding things to core to compete
 
 --
 
@@ -300,6 +306,7 @@ Note:
 
 - fixed feature list
 - defined use cases
+- dedicated resources
 
 --
 
@@ -338,7 +345,7 @@ Note:
 
 - Drupal 8 5 years
 - Core is where code goes to die (forum) 7 years old - is it relevant? nothing happened in 7 years?
-- Innovation is stalled
+- Innovation is slow
 - Contrib is where the innovation occurs
 
 --
@@ -347,6 +354,7 @@ Note:
 
 Note:
 
+- Attempt to facilitate faster innovation
 - In honesty, looking at 8.1 and 8.2, semver killed small core
 - We have to have something to herald in each new release
 - Dries previews these at each Drupalcon Driesnote
@@ -358,8 +366,11 @@ Note:
 
 ## Experimental modules
 
+https://events.drupal.org/dublin2016/sessions/checking-drupal-8s-rapid-innovation-promises
+
 Note: 
 
+- get more eyes on future enhancements
 - fluid apis
 - no guarantees 
 - migrate module api changes from 8.0 to 8.1 and 8.1 to 8.2 (within rights)
@@ -458,7 +469,8 @@ Note:
 - how to determine what goes in core
 - too much to maintain in core
 - core is slow
-- how to do this generically 
+- how to do this generically
+- how to avoid bikeshed
 
 --
 
@@ -479,16 +491,45 @@ Note:
 - That serves a purpose
 - That shows people how to do things
 - That acts as a promotional tool
-- Farmers market user guide
-- theme flame, fixed scope, generic
-- Portfolio site
-- The iniative formerly known as Snowman
 
 --
 
-## Steps in the right direction
+<!-- .slide: data-background="/images/snowman.jpg"-->
+
+## Snowman
 
 Note:
+
+- The initiative formerly known as Snowman
+- Farmers market user guide
+- Portfolio site
+
+--
+
+<!-- .slide: data-background="/images/bikeshed.jpg"-->
+
+## Avoid bikeshedding?
+
+- Create a new user-facing core theme
+- https://www.drupal.org/node/2759849
+
+Note: 
+
+- New user facing theme in core
+- Flame/bikeshed of doom
+- Can't please everyone rockwell
+- trying to do things generic
+- need to support theming every element
+
+--
+
+## First steps in the right direction
+
+- Create experimental installation profile
+- https://www.drupal.org/node/2809635
+
+Note:
+
 - experimental profile in core
 - Not adding more to standard profile
 - Not adding sample content to standard profile
@@ -498,6 +539,8 @@ Note:
 <!-- .slide: data-background="/images/adventure.png"-->
 
 ## The future?
+
+Promote and allow downloading of vetted install profiles from the installer - https://www.drupal.org/node/2818085
 
 Note:
 - Choose your adventure
@@ -534,23 +577,15 @@ Note:
 
 --
 
-# Now questions?
+# Let's discuss
 
 *for real this time
 
 --
 
-# Links
-
-- Create experimental installation profile
-- https://www.drupal.org/node/2809635
-
---
-
 ## Image credits
 
-<div style="font-size: 14px;">
-<ul><li>https://www.youtube.com/watch?v=StTqXEQ2l-Y
+<ul class="tight"><li>https://www.youtube.com/watch?v=StTqXEQ2l-Y
 </li><li>https://www.drupal.org/files/15427887546_da9827c370_o.jpg
 </li><li>http://www.kenmarkbackdrops.com/wp-content/uploads/2012/04/736-20x48.jpg
 </li><li>http://static.srcdn.com/wp-content/uploads/Willy-Wonka1-e1472952466111.jpg
@@ -567,5 +602,6 @@ Note:
 </li><li>https://nblibrarykids.files.wordpress.com/2012/12/lego-house-2.jpg
 </li><li>http://assets.madaboutbricks.uk/wp-content/uploads/2014/02/03131945/Lego_Part_x497c01_Floating_Boat_Hull_4.jpg
 </li><li>https://upload.wikimedia.org/wikipedia/commons/a/aa/A._gigantea_Aldabra_Giant_Tortoise.jpg
+</li><li>https://upload.wikimedia.org/wikipedia/commons/e/eb/Bicycle_shed.JPG
+</li><li>https://moviewriternyu.files.wordpress.com/2014/01/snowman-wallpaper.jpg
 </li></ul>
-</div>
