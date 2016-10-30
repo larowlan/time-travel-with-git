@@ -275,7 +275,7 @@ Note:
 
 Composer vs Update UI module
 
-![production uploads](/images/twitter.bojanz.png)
+![production uploads](./images/twitter.bojanz.png)
 
 Note: 
 
