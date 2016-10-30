@@ -1,4 +1,4 @@
-<!-- .slide: data-background="/images/cake.jpg" -->
+<!-- .slide: data-background="./images/cake.jpg" -->
 
 ## At 16 years of age,<br> does Drupal have an <br>identity problem?
 
@@ -19,7 +19,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/seriously.jpg" -->
+<!-- .slide: data-background="./images/seriously.jpg" -->
 
 # But seriously
 
@@ -29,7 +29,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/awesome.jpg"-->
+<!-- .slide: data-background="./images/awesome.jpg"-->
 # everything is awesome
 
 
@@ -43,7 +43,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/juicy.jpg" -->
+<!-- .slide: data-background="./images/juicy.jpg" -->
 ## Let's get into it
 
 Note:
@@ -52,7 +52,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/who.jpg" -->
+<!-- .slide: data-background="./images/who.jpg" -->
 ## Who is this clown
 
 @larowlan
@@ -70,7 +70,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/navel-gazing.jpg" -->
+<!-- .slide: data-background="./images/navel-gazing.jpg" -->
 ## Some navel gazing
 
 Note:
@@ -109,7 +109,7 @@ drupal.org/about
 
 --
 
-<!-- .slide: data-background="/images/willis.jpg" -->
+<!-- .slide: data-background="./images/willis.jpg" -->
 ## Notice something missing?
 
 Note:
@@ -119,7 +119,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/product.jpg"-->
+<!-- .slide: data-background="./images/product.jpg"-->
 ## So is Drupal also a product?
 
 Note:
@@ -128,7 +128,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/lego.jpg"-->
+<!-- .slide: data-background="./images/lego.jpg"-->
 ## Or just a framework?
 
 Note:
@@ -152,7 +152,7 @@ http://www.slideshare.net/webchickenator/drupals-competition
 
 --
 
-<!-- .slide: data-background="/images/eye.jpg"-->
+<!-- .slide: data-background="./images/eye.jpg"-->
 
 ## See a pattern?
 
@@ -176,7 +176,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/butterfly.jpg"-->
+<!-- .slide: data-background="./images/butterfly.jpg"-->
 
 ## So maybe we are a product?
 
@@ -201,7 +201,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/lego.jpg"-->
+<!-- .slide: data-background="./images/lego.jpg"-->
 
 ## Out of the box?
 
@@ -227,7 +227,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/audience.jpg"-->
+<!-- .slide: data-background="./images/audience.jpg"-->
 
 ## Who is our audience?
 
@@ -242,13 +242,13 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/kevin.jpg"-->
+<!-- .slide: data-background="./images/kevin.jpg"-->
 
 ## Do we even know?
 
 --
 
-<!-- .slide: data-background="/images/confused.png"-->
+<!-- .slide: data-background="./images/confused.png"-->
 
 ## No
 
@@ -309,7 +309,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/house.jpg"-->
+<!-- .slide: data-background="./images/house.jpg"-->
 
 ## What we're up against
 
@@ -321,7 +321,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/house2.jpg"-->
+<!-- .slide: data-background="./images/house2.jpg"-->
 
 ## What you get from<br>standard profile
 
@@ -348,7 +348,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/tortoise.jpg" -->
+<!-- .slide: data-background="./images/tortoise.jpg" -->
 
 ## Innovation in core is slow
 
@@ -415,7 +415,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/money.jpg"-->
+<!-- .slide: data-background="./images/money.jpg"-->
 
 ### Who here considers Drupal<br>their primary source of income?
 
@@ -493,7 +493,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/creator.jpg"-->
+<!-- .slide: data-background="./images/creator.jpg"-->
 ## We have the technology
 
 Note:
@@ -513,7 +513,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/snowman.jpg"-->
+<!-- .slide: data-background="./images/snowman.jpg"-->
 
 ## Snowman
 
@@ -526,7 +526,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/bikeshed.jpg"-->
+<!-- .slide: data-background="./images/bikeshed.jpg"-->
 
 ## Avoid bikeshedding?
 
@@ -557,7 +557,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/adventure.png"-->
+<!-- .slide: data-background="./images/adventure.png"-->
 
 ## The future?
 
@@ -571,7 +571,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/boat.jpg"-->
+<!-- .slide: data-background="./images/boat.jpg"-->
 
 ## Something for<br>framework managers?
 
@@ -599,7 +599,7 @@ Note:
 
 --
 
-<!-- .slide: data-background="/images/curve.png"-->
+<!-- .slide: data-background="./images/curve.png"-->
 
 ## Something for<br>new contributors?
 
