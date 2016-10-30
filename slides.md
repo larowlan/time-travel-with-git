@@ -6,6 +6,8 @@ Note:
 
 - growing pains expected
 - attempt to distill my incoherent ramblings from the last six months into something cohesive
+- going to present my answer to this hypothesis
+- then we'll have a discussion
 
 --
 
@@ -23,7 +25,7 @@ Note:
 
 Note: 
 
-- if you're evaluating Drupal
+- some of you may be new to or evaluating Drupal
 
 --
 
@@ -35,6 +37,7 @@ Note:
 
 - does this mean trouble in paradise?
 - all FOSS projects have these issues
+- other open source projects would love to be talking about this in 16 years
 - growing pains
 - process of violent agreement
 
@@ -56,12 +59,14 @@ Note:
 
 Note:
 
+- by way of introduction
 - 8 years of Drupal
 - 450+ core patches
 - Maintain 4 core modules
 - 40+ contrib modules
 - security team member
 - senior drupal dev at @pnx
+- that point in the relationship where I can say 'Drupal: we need to talk'
 
 --
 
@@ -71,6 +76,8 @@ Note:
 Note:
 
 - Lets spend some time looking at the problem
+- Before we can gauge if we have an identity problem, we need to explore our identity
+- so let's start with an easy question
 
 --
 
@@ -89,6 +96,10 @@ Note:
 Note:
 
 - Most common definition originally coined by Webchick
+- Even then its fractured into three parts
+- Dries: "For ambituous digital experiences" (borrowed from Ember btw)
+- I think above all, the third part is the most important. 
+- We skate to where the puck is going to be next and drag the software along
 
 --
 
@@ -400,6 +411,7 @@ Note:
 - as a maintainer do I spend time on CM or WBM? Patches need to be applied twice.
 - What advantage is there to having the module in core?
 - maintaining similar things in two places
+- pause and change tack
 
 --
 
@@ -417,14 +429,20 @@ Note:
 
 --
 
+> For an ecosystem that provides gainful employment to so many, so much work falls to so few
+
+me
+
+--
+
 ## Who is going to<br>maintain all this?
 
 Note:
 
-- short tail 270/3750 > 20 - 41193 D8 issues
+- short tail 270/3750 > 20 - 15000 D8 issues (6 years)
 - 128 if you use 50 as the trigger, 3%
 - 7% did most of the work
-- 270 people to resolve 41000 issues
+- 270 people to resolve 15000 issues
 - No wonder D8 took 5 years
 - 11093 open issues against D8 (Oct 11)
 - 4413 bugs
@@ -441,6 +459,7 @@ Note:
 - Five years ago, just before Drupalcon London, Drupal 7 had been out for six months
 - In frustration with the number of open bugs core maintainers put up a white flag
 - aim to make core maintainable
+- so is history repeating or maybe...just maybe
 
 --
 
@@ -503,6 +522,7 @@ Note:
 - The initiative formerly known as Snowman
 - Farmers market user guide
 - Portfolio site
+- Are there other benefits to building in a fixed scope?
 
 --
 
@@ -518,15 +538,16 @@ Note:
 - New user facing theme in core
 - Flame/bikeshed of doom
 - Can't please everyone rockwell
-- trying to do things generic
+- trying to do things generic in a new theme
 - need to support theming every element
+- but what if that theme is part of a product too, with a scope
 
 --
 
 ## First steps in the right direction
 
 - Create experimental installation profile
-- https://www.drupal.org/node/2809635
+- https://www.drupal.org/node/2822412
 
 Note:
 
@@ -546,6 +567,7 @@ Note:
 - Choose your adventure
 - Right in the installer?
 - Languages are installed from there - why not profiles?
+- For me, this is the thing that reconciles all of my current gripes
 
 --
 
@@ -574,6 +596,15 @@ Note:
 
 Note:
 - Focus on vetting profiles (specific versions)
+
+--
+
+<!-- .slide: data-background="/images/curve.png"-->
+
+## Something for<br>new contributors?
+
+Note:
+- A big part of an install profile is exported site building
 
 --
 
