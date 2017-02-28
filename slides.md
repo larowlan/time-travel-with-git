@@ -1,59 +1,33 @@
-<!-- .slide: data-background="./images/cake.jpg" -->
+<!-- .slide: data-background="./images/blueprint.jpg" -->
 
-## At 16 years of age,<br> does Drupal have an <br>identity problem?
-
-Note:
-
-- growing pains expected
-- attempt to distill my incoherent ramblings from the last six months into something cohesive
-- going to present my answer to this hypothesis
-- then we'll have a discussion
-
---
-
-# Yes
-
---
-
-# Let's discuss
-
---
-
-<!-- .slide: data-background="./images/seriously.jpg" -->
-
-# But seriously
-
-Note: 
-
-- some of you may be new to or evaluating Drupal
-
---
-
-<!-- .slide: data-background="./images/awesome.jpg"-->
-# everything is awesome
-
+## A blueprint for a secure<br>Drupal 8 platform<br>and build process<br>with composer
 
 Note:
 
-- does this mean trouble in paradise?
-- all FOSS projects have these issues
-- other open source projects would love to be talking about this in 16 years
-- growing pains
-- process of violent agreement
+-
 
 --
 
-<!-- .slide: data-background="./images/juicy.jpg" -->
-## Let's get into it
+<!-- .slide: data-background="./images/boxing.jpg" -->
 
-Note:
-
-- Onto the juicy bits
+## Let's get it out there
 
 --
 
-<!-- .slide: data-background="./images/who.jpg" -->
-## Who is this clown
+<!-- .slide: data-background="./images/musicians.jpg" -->
+
+## If you're not using composer with Drupal 8
+
+--
+
+<!-- .slide: data-background="./images/wrong.jpg" -->
+
+## You're doing it wrong
+
+--
+
+<!-- .slide: data-background="./images/bundy.jpg" -->
+## Who am I?
 
 @larowlan
 
@@ -66,573 +40,364 @@ Note:
 - 40+ contrib modules
 - security team member
 - senior drupal dev at @pnx
-- that point in the relationship where I can say 'Drupal: we need to talk'
 
 --
 
-<!-- .slide: data-background="./images/navel-gazing.jpg" -->
-## Some navel gazing
+<!-- .slide: data-background="./images/package.jpg" -->
 
-Note:
-
-- Lets spend some time looking at the problem
-- Before we can gauge if we have an identity problem, we need to explore our identity
-- so let's start with an easy question
-
---
-
-## What is Drupal?
+## Composer basics
 
 Note: 
 
-- What is our identity
+- Composer is a package manager for PHP
+- Think bundler for Ruby or npm for JavaScript/Node
 
 --
 
-- A content modelling framework
-- A content management system
-- A kickass community
+## composer.json
 
 Note:
 
-- Most common definition originally coined by Webchick
-- Even then its fractured into three parts
-- Dries: "For ambituous digital experiences" (borrowed from Ember btw)
-- I think above all, the third part is the most important. 
-- We skate to where the puck is going to be next and drag the software along
+- Nominate required packages and version constraint
+- Nominate autoloading (see my other session)
+- Dev dependencies (e.g. testing framework)
+- Directories to place stuff in
 
 --
 
-> Drupal is content management software. It's used to make many of the websites and applications you use every day. Drupal has great standard features, like easy content authoring, reliable performance, and excellent security. But what sets it apart is its flexibility; modularity is one of its core principles. Its tools help you build the versatile, structured content that dynamic web experiences need.
-
-drupal.org/about
-
---
-
-<!-- .slide: data-background="./images/willis.jpg" -->
-## Notice something missing?
+## composer.lock
 
 Note:
 
-- emphasis on 'building'
-- no emphasis on 'install it and you're done'
+- Repeatable builds
+- Hash of versions used
+- Always commit your lock if you expect repeatable builds
 
 --
 
-<!-- .slide: data-background="./images/product.jpg"-->
-## So is Drupal also a product?
+## Version constraints
+
+- ~1.2
+- ^1.2.0
+- dev-{branchname}
+- 1.2.3
+- dev-{branchname}#{sha}
+
+--
+
+## Installing
+
+- <code>composer install --prefer-dist</code>
+
+--
+
+## Updating
+
+- <code>composer update</code>
+- <code>composer update "drupal/core" --with-dependencies</code>
+- <code>composer update "drupal/*" --with-dependencies</code>
+
+--
+
+## Outdated
+
+- <code>composer outdated</code>
+
+--
+
+## Drupal 8
+
+- Start with the template
+- <code>composer create-project drupal-composer/drupal-project:8.x-dev myproject --stability dev --no-interaction</code>
+
+--
+
+## drupal.org Packagist
+
+- <code>composer config repositories.drupal composer https://packages.drupal.org/8</code>
+- <code>composer require "drupal/entity_hierarchy:~2.0"</code>
+
+--
+
+## Plugins
+
+- Many of these included in Drupal project template
+
+--
+
+## Composer installers
+
+- <code>composer require "composer/installers:~1.0"</code>
+
+--
+
+## Composer installers
+
+<pre><code type="text/javascript">
+"extra": {
+    "installer-paths": {
+        "app/core": [
+            "drupal/core"
+        ],
+        "app/modules/contrib/{$name}": [
+            "type:drupal-module"
+        ],
+        "app/themes/contrib/{$name}": [
+            "type:drupal-theme"
+        ],
+    },
+    "enable-patching": true
+}
+</code></pre>
+
+--
+
+## Composer patches
+
+- <code>composer require "cweagans/composer-patches:~1.5"</code>
+
+--
+
+## Composer patches
+
+<pre><code type="text/javascript">
+"extra": {
+    "patches": {
+        "drupal/core": {
+            "Allow BTB to run against existing site": "https://www.drupal.org/files/issues/2793445-25-8.2.x.patch",
+         }
+     }
+}
+</code></pre>
+
+--
+
+## So what does this have to do with security?
+
+--
+
+## Let's talk about audits
 
 Note:
 
-- No mention of it
+- One of the services we provide at PNX is auditing of projects
+- One element of that is security
+- PNX are the only Australian team with staff on the Security Team
+- We have two, Ben Dougherty and myself
 
 --
 
-<!-- .slide: data-background="./images/lego.jpg"-->
-## Or just a framework?
+## Steps in the audit process
+
+- Determine if the site is running insecure versions
 
 Note:
 
-- To answer that, lets look at our competitors
+- drush upc --security-only
 
 --
 
-### How our competitors are <br>kicking Drupal's ass
+## Steps in the audit process
 
-http://www.slideshare.net/webchickenator/drupals-competition
-
---
-
-- Wordpress
-- Squarespace
-- Wix
-- Sitecore
-- Adobe experience manager
-- Contentful
-
---
-
-<!-- .slide: data-background="./images/eye.jpg"-->
-
-## See a pattern?
+- Determine if any contrib or core code has been modified
 
 Note:
 
-- all are complete products
+- Now we have third party code, this increases tenfold
+- 68M of code in app/core
+- 58M in vendor
 
 --
 
-## What about? 
+## The audit surface is huge
 
-- Laravel
-- Symfony fullstack
-- Rails
-- Django
-- JavaScript frameworks
-- ourselves* 
-
-<br>
-*more on that later
-
---
-
-<!-- .slide: data-background="./images/butterfly.jpg"-->
-
-## So maybe we are a product?
+- although hacked.module can help
 
 Note:
 
-- an ugly one
-- still undergoing metamorphis/evolving
+- if you've checked in core 68M of code
+- if you've checked in vendor 58M of code
+- plus contrib code probably of the order of 20 - 30M of code
 
 --
 
-## What is a product?
+## Everytime you hack core
+
+- a kitten gets it
 
 Note:
 
-- A product serves a needs
-- Fills a purpose
-- Solves a problem
+- when we audit, we look for patches
+- core has bugs (thousands of them)
+- patching is a reality
+- patching is fine
+- hacking without patches is not
 
 --
 
-## Does Drupal do that?
+## No patches?
 
---
-
-<!-- .slide: data-background="./images/lego.jpg"-->
-
-## Out of the box?
-
---
-
-## What problem<br>does core solve?
-
-Note: 
-
-- On its own, not much
-- When was the last time you built a site with core only
-- And a stock theme
-
---
-
-## <s>What</s>Whose problem<br>does core solve?
+- good luck with that critical security update
 
 Note:
 
-- In reality, nobody
-- Yet we have a product manager
-- And we keep adding things to core to compete
+- Patch files let you update smoothly
+- No snowflakes
+- Patches from d.o get re-rolled
+- You're not alone
 
 --
 
-<!-- .slide: data-background="./images/audience.jpg"-->
-
-## Who is our audience?
-
---
-
-- developers?
-- site builders?
-- designers?
-- amateurs/hobbyists?
-- enterprise?
-- content editors?
-
---
-
-<!-- .slide: data-background="./images/kevin.jpg"-->
-
-## Do we even know?
-
---
-
-<!-- .slide: data-background="./images/confused.png"-->
-
-## No
-
-Core itself is even confused
-
---
-
-## Exhibit A
-
-CMI vs place blocks + outside in
+## So what is left?
 
 Note:
 
-- CMI initiative enterprise focussed, git workflow
-- Separate configuration from content
-- Place blocks and outside in allow editing
-- Are they focussed on site editors/owners? Or developers?
-- Editing config on production is frowned upon - modules like config lock
-- So is this really a user facing feature?
+- Take out core
+- Take out contrib
+- Take out vendor
 
 --
 
-## Exhibit B
+## Custom code
 
-Composer vs Update UI module
-
-![production uploads](./images/twitter.bojanz.png)
-
-Note: 
-
-- if composer? why not use a real framework. Have we abandoned our origins?
-- July 2016 20% of D7 module downloads were from Update manager
-- 13% for D8
+- Themes
+- Modules
 
 --
 
-## Where does this<br>leave developers?
+## That's it
+
+- Congratulations, you know have a much smaller audit surface
+
+--
+
+## New audit process
+
+- Check for insecure core/module versions
 
 Note:
 
-- Devs only want to maintain stuff that they're interested in
-- Volunteer time is limited
-- Update module critical bugs delayed the release of D8
-- It got to the 'lets just remove it point'
-- People who use it don't maintain it
-- People who could maintain it don't use it
+- drush upc --security-only --dry-run
 
 --
 
-## Spare a thought for<br>the product managers
+## Any alphas or dev versions?
+
+- Check composer.json
 
 Note:
 
-- try and resolve all of this when evaluating a feature
-- try and do that when your day to day job isn't building sites with Drupal
-- what is a framework feature vs what is a product feature
-- who is the user you target?
+- stable modules are covered by security team
+- no audits, but security vulnerabilities handled in private
+- if you use a dev/alpha/beta version, check the maintainer reputation
+- follow the issue queue to be across security/major issues
 
 --
 
-<!-- .slide: data-background="./images/house.jpg"-->
+## Vetted module lists?
 
-## What we're up against
+- Instead minimum-stability flags?
+<pre><code type="text/javascript">"minimum-stability": "stable"
+</code></pre>
+
+Note:
+- Composer supports minimum stability flags
+- dev/alpha/beta/RC/stable
+
+--
+
+## Out of date third party code?
+
+- <pre><code>composer outdated</code></pre>
+- Not limited to security
+- Includes unsupported
+
+--
+
+## Third-party security<br>vulnerabilities
+
+- Sensiolabs security database & checker
+
+--
+
+## Web version
+
+- https://security.sensiolabs.org
+- Upload your composer.lock
 
 Note:
 
-- fixed feature list
-- defined use cases
-- dedicated resources
+- remember I said always check in the lock file
+- this is why
+- its your guarantee
 
 --
 
-<!-- .slide: data-background="./images/house2.jpg"-->
+## Tooling
 
-## What you get from<br>standard profile
+<code>composer require sensiolabs/security-checker --dev</code>
+
+
+<code>./bin/security-checker security:check ./composer.lock</code>
 
 Note:
 
-- because we're trying to solve everything generically
-- we do nothing well
-- jack of all trades, master of none
-- the need to compete - feature list showdowns
-- we end up with an arms race - throw..
+- automate into your build process
+- fail insecure builds/deploys
+- you have a build right?
 
 --
 
-## So we throw more modules at the problem
+## How does it work?
+
+- https://github.com/FriendsOfPHP/security-advisories
 
 Note:
 
-- product x has feature y, we need to compete
-- but that comes at a cost
+- open source database of PHP project CVEs (common vulnerabilities and exposures)
 
 --
 
-## And the maintenance<br>burden goes up
+## Does it include Drupal?
 
---
-
-<!-- .slide: data-background="./images/tortoise.jpg" -->
-
-## Innovation in core is slow
+- For core, yes
+- For contrib, not yet (we're working on it)
 
 Note:
 
-- Drupal 8 5 years
-- Core is where code goes to die (forum) 7 years old - is it relevant? nothing happened in 7 years?
-- Innovation is slow
-- Contrib is where the innovation occurs
+- We need d.o to make security advisories available as their own node-type instead of a forum post, so we can automate
+- We need the security checker to support packagist repos outside packagist (drupal.org)
 
 --
 
-## But semver
+## Something more formal
+
+- PSR-9 and PSR-10
 
 Note:
 
-- Attempt to facilitate faster innovation
-- In honesty, looking at 8.1 and 8.2, semver killed small core
-- We have to have something to herald in each new release
-- Dries previews these at each Drupalcon Driesnote
-- Noone wants to download 8.x if all it includes are bug fixes
-- bugs aren't sexy
-- stability isn't sexy
+- Not all PHP projects are created equal
+- e.g. Drupal has security team and private process
+- Symfony has private per issue invite only repos/teams
+- No common/formalised reporting process
+- No common disclosure process
 
 --
 
-## Experimental modules
+# Questions?
 
-https://events.drupal.org/dublin2016/sessions/checking-drupal-8s-rapid-innovation-promises
-
-Note: 
-
-- get more eyes on future enhancements
-- fluid apis
-- no guarantees 
-- migrate module api changes from 8.0 to 8.1 and 8.1 to 8.2 (within rights)
-- 12 months to solidify
-- history repeating? dashboard, overlay
-- does shifting sand give certainty
-
---
-
-## Are we competing<br>with ourselves?
-
-- WBM vs content moderation
-- field layouts vs DS
-
-Note:
-
-- WBM not compatible with content moderation and vice versa
-- Talk of completely changing the storage of transitions and states
-- No certainty
-
---
-
-## Are we duplicating effort?
-
-Note:
-
-- as a maintainer do I spend time on CM or WBM? Patches need to be applied twice.
-- What advantage is there to having the module in core?
-- maintaining similar things in two places
-- pause and change tack
-
---
-
-<!-- .slide: data-background="./images/money.jpg"-->
-
-### Who here considers Drupal<br>their primary source of income?
-
-Note:
-
-- Who here contributed something to Drupal today?
-- this week?
-- this month?
-- this year?
-- if you're an employer/agency whose primary business is drupal, are you giving employees time?
-
---
-
-> For an ecosystem that provides gainful employment to so many, so much work falls to so few
-
-me
-
---
-
-## Who is going to<br>maintain all this?
-
-Note:
-
-- short tail 270/3750 > 20 - 15000 D8 issues (6 years)
-- 128 if you use 50 as the trigger, 3%
-- 7% did most of the work
-- 270 people to resolve 15000 issues
-- No wonder D8 took 5 years
-- 11093 open issues against D8 (Oct 11)
-- 4413 bugs
-
---
-
-## History repeating?
-
-- http://bit.ly/2e9EcCw - The original post
-- http://bit.ly/2e9E3yR - Time capsule podcast
-
-Note:
-
-- Five years ago, just before Drupalcon London, Drupal 7 had been out for six months
-- In frustration with the number of open bugs core maintainers put up a white flag
-- aim to make core maintainable
-- so is history repeating or maybe...just maybe
-
---
-
-## Or can we pick up<br>where we left off?
-
-- <s>Unofficial Framework initiative</s><br>https://www.drupal.org/node/1224666
-- <s>Establish heuristics for core feature evaluation</s><br>https://www.drupal.org/node/1273344
-- Drupal as a platform<br>https://www.drupal.org/node/1260214
-
-Note:
-
-- We got through the framework initiative
-- https://www.drupal.org/node/122466 [Unofficial framework initiative]
-- https://www.drupal.org/node/1273344 [Establish heuristics for core feature evaluation]
-- https://www.drupal.org/node/1260214 [Drupal as a platform]
-
---
-
-## Is that the answer?
-
-To our identity problem
-
-Note:
-
-- recap
-- how to determine what goes in core
-- too much to maintain in core
-- core is slow
-- how to do this generically
-- how to avoid bikeshed
-
---
-
-<!-- .slide: data-background="./images/creator.jpg"-->
-## We have the technology
-
-Note:
-
-- Focus on generic building blocks in core
-- Install profiles show how to put them together
-
---
-
-## Focus on a real product
-
-Note:
-
-- That serves a purpose
-- That shows people how to do things
-- That acts as a promotional tool
-
---
-
-<!-- .slide: data-background="./images/snowman.jpg"-->
-
-## Snowman
-
-Note:
-
-- The initiative formerly known as Snowman
-- Farmers market user guide
-- Portfolio site
-- Are there other benefits to building in a fixed scope?
-
---
-
-<!-- .slide: data-background="./images/bikeshed.jpg"-->
-
-## Avoid bikeshedding?
-
-- Create a new user-facing core theme
-- https://www.drupal.org/node/2759849
-
-Note: 
-
-- New user facing theme in core
-- Flame/bikeshed of doom
-- Can't please everyone rockwell
-- trying to do things generic in a new theme
-- need to support theming every element
-- but what if that theme is part of a product too, with a scope
-
---
-
-## First steps in the right direction
-
-- Create experimental installation profile
-- https://www.drupal.org/node/2822412
-
-Note:
-
-- experimental profile in core
-- Not adding more to standard profile
-- Not adding sample content to standard profile
-
---
-
-<!-- .slide: data-background="./images/adventure.png"-->
-
-## The future?
-
-Promote and allow downloading of vetted install profiles from the installer - https://www.drupal.org/node/2818085
-
-Note:
-- Choose your adventure
-- Right in the installer?
-- Languages are installed from there - why not profiles?
-- For me, this is the thing that reconciles all of my current gripes
-
---
-
-<!-- .slide: data-background="./images/boat.jpg"-->
-
-## Something for<br>framework managers?
-
-Note:
-- core focuses on generic components
-- Not on single-use features
-- e.g IEF
-- entity browser
-
---
-
-## Something for marketing?
-
-Note:
-- We market new vetted profiles
-- We market new generic building blocks
-- We market new features in profiles
-
---
-
-## Something for<br>product managers?
-
-Note:
-- Focus on vetting profiles (specific versions)
-
---
-
-<!-- .slide: data-background="./images/curve.png"-->
-
-## Something for<br>new contributors?
-
-Note:
-- A big part of an install profile is exported site building
-
---
-
-# Let's discuss
-
-*for real this time
+- https://www.drupal.org/docs/develop/using-composer/using-composer-to-manage-drupal-site-dependencies
+- ping me on irc in #drupal-au to discuss more
 
 --
 
 ## Image credits
 
-<ul class="tight"><li>https://www.youtube.com/watch?v=StTqXEQ2l-Y
-</li><li>https://www.drupal.org/files/15427887546_da9827c370_o.jpg
-</li><li>http://www.kenmarkbackdrops.com/wp-content/uploads/2012/04/736-20x48.jpg
-</li><li>http://static.srcdn.com/wp-content/uploads/Willy-Wonka1-e1472952466111.jpg
-</li><li>http://www.mrwallpaper.com/wallpapers/juicy-orange-slices-1600x900.jpg
-</li><li>http://www.cmo.com/dam/CMO/Home%20Page/1046x616_bellybutton.jpg
-</li><li>http://2.bp.blogspot.com/-EnmGioXLSH4/VeJKasu1b4I/AAAAAAAAAUc/NKPakwmAwQo/w1200-h630-p-nu/Chalkin%2Bbout%2Bwillis.jpg
-</li><li>https://upload.wikimedia.org/wikipedia/commons/3/32/Lego_Color_Bricks.jpg
-</li><li>https://mi-od-live-s.legocdn.com/r/www/r/catalogs/-/media/franchises/city2014/products/all%20product%20images/60047_webfiles_prod_secimg_1488_744w.jpg?l.r2=-1804838872
-</li><li>http://i.imgur.com/ZoXrZ3X.jpg
-</li><li>http://pulpbits.net/wp-content/uploads/2013/11/butterfly-polyxenes-butterfly-inside-the-pupa.jpg
-</li><li>http://commongood.org.za/EN/wp-content/uploads/2014/03/Home_Alone_Boy1.jpg
-</li><li>https://thirdlizardo.files.wordpress.com/2015/04/pork-illustrated.png
-</li><li>http://www.ibrickcity.com/wp-content/gallery/5891/lego-5891-apple-tree-house-city-ibrickcity-11.jpg
-</li><li>https://nblibrarykids.files.wordpress.com/2012/12/lego-house-2.jpg
-</li><li>http://assets.madaboutbricks.uk/wp-content/uploads/2014/02/03131945/Lego_Part_x497c01_Floating_Boat_Hull_4.jpg
-</li><li>https://upload.wikimedia.org/wikipedia/commons/a/aa/A._gigantea_Aldabra_Giant_Tortoise.jpg
-</li><li>https://upload.wikimedia.org/wikipedia/commons/e/eb/Bicycle_shed.JPG
-</li><li>https://moviewriternyu.files.wordpress.com/2014/01/snowman-wallpaper.jpg
-</li></ul>
+<ul class="tight">
+<li>https://www.flickr.com/photos/statelibraryqueensland/25487330522</li>
+<li>https://www.flickr.com/photos/statelibraryqueensland/25487330522</li>
+<li>https://www.flickr.com/photos/statelibraryqueensland/16618698644</li>
+<li>https://www.flickr.com/photos/statelibraryqueensland/4312619111</li>
+<li>https://www.flickr.com/photos/statelibraryqueensland/4461115473</li>
+<li>https://www.flickr.com/photos/statelibraryqueensland/4189609872</li>
+</ul>
