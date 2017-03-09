@@ -50,7 +50,7 @@ Note:
 Note: 
 
 - Composer is a package manager for PHP
-- Think bundler for Ruby or npm for JavaScript/Node
+- Think bundler/gem for Ruby or npm for JavaScript/Node
 
 --
 
@@ -69,9 +69,16 @@ Note:
 
 Note:
 
+- artefact
 - Repeatable builds
 - Hash of versions used
 - Always commit your lock if you expect repeatable builds
+
+--
+
+## Adding a dependency
+
+- <code>composer require "symfony/yaml:~2.8"</code>
 
 --
 
@@ -116,6 +123,10 @@ Note:
 
 - <code>composer config repositories.drupal composer https://packages.drupal.org/8</code>
 - <code>composer require "drupal/entity_hierarchy:~2.0"</code>
+
+Note:
+
+- sensible defaults
 
 --
 
@@ -231,7 +242,7 @@ Note:
 - core has bugs (thousands of them)
 - patching is a reality
 - patching is fine
-- hacking without patches is not
+- hacking without patches is not fine
 
 --
 
@@ -284,6 +295,7 @@ Note:
 ## Any alphas or dev versions?
 
 - Check composer.json
+<pre><code>composer show --installed</code></pre>
 
 Note:
 
@@ -344,7 +356,7 @@ Note:
 
 - automate into your build process
 - fail insecure builds/deploys
-- you have a build right?
+- you have a build right? if not we consult on that stuff
 
 --
 
