@@ -133,6 +133,7 @@ Note:
 
 - Specialized operations that have no home in an entity/value object
 - Pattern seen in Drupal 8
+- Cache bins
 
 --
 
@@ -142,6 +143,7 @@ Note:
 
 - When creating a new object requires repeating steps, or the type of object created may vary
 - Seen in many software architectures
+- e.g logger factory
 
 --
 
@@ -409,7 +411,7 @@ Note:
 - A valid AU address:
 - You must provide either Street Address, with optional Unit/Level/Lot or Property Name or Postal Box Number
 - You must provide a suburb
-- Postcode must be either a 4 digit number or a three digit number staring with 8
+- Postcode must be either a 4 digit number or a three digit number starting with 8
 - State must be provided and match valid values
 - Street type must be provided if not a postal box and match valid values
 
@@ -454,8 +456,6 @@ Note:
 ## How does our code look now?
 
 <pre><code class="php">
-use \Submission\DTO\SubmissionAggregate;
-
 class SomeForm extends FormBase {
 
   // ...
@@ -503,8 +503,6 @@ Note:
 ## Revisiting the code.
 
 <pre><code class="php">
-use \Submission\SubmitterInterface;
-use \Submission\ErrorDisplayInterface;
 class SomeForm extends FormBase {
 
   protected $submitter;
@@ -535,9 +533,6 @@ class SomeForm extends FormBase {
 ## Mocking
 
 <pre><code class="php">
-namespace Submission\Test;
-use \Submission\SubmitterInterface;
-use \Submission\Submission\SubmissionInterface;
 MockSubmitter implements SubmitterInterface {
   public function submit(SubmissionIntereface $submission) {
     // Do what you like here to validate your logic.
@@ -582,7 +577,7 @@ Note:
 <pre><code class="php">Formfactory->getFormForObject($some_object);</code></pre>
 - Works by reading annotations on properties
 <pre><code class="php">
-class JewelleryItem extends BaseItem implements ValueItemInterface {
+class JewelleryItem {
  
   /**
    * The shape.
