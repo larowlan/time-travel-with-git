@@ -49,6 +49,8 @@ Note:
 
 --
 
+<!-- .slide: data-background="./images/spaghetti.jpg" -->
+
 ## Session overview
 
 Note:
@@ -94,91 +96,14 @@ Note:
 
 --
 
-## Building blocks
-
---
-
-## Value objects
-
-Note:
-
-- Most text books use Money as an example, it comprises a currency and a value
-- No concept of identity
-- But concept of equality
-- In the past in Drupal we've used keyed arrays for this, but the tide is changing
-
---
-
-## Entities
-
-Note:
-
-- You know this well. 
-- These do have an identity
-
---
-
-## Repositories
-
-Note:
-
-- Analagous to Drupal's entity storage handlers
-- Responsible for retrieval of entitie
-
---
-
-## Services
-
-Note:
-
-- Specialized operations that have no home in an entity/value object
-- Pattern seen in Drupal 8
-- Cache bins
-
---
-
-## Factories
-
-Note:
-
-- When creating a new object requires repeating steps, or the type of object created may vary
-- Seen in many software architectures
-- e.g logger factory
-
---
-
-## Domain events
-
-Note:
-
-- An event that triggers an action happened
-- Often corresponds with real world events
-- Relevant to domain
-- InvoiceWasPaid
-- ProductWasShipped
-
---
-
-## Aggregate Roots
-
-Note:
-
-- A collection of objects bound by a root entity
-- E.g. A Commerce Order is an aggregate root, it contains line-item entities that you really only interact with via the order.
-- Ensures consistency of changes by preventing changes to contained objects from the outside
-
---
-
 <!-- .slide: data-background="./images/d.jpg" -->
-## Drupal & DDD
-
-- or DDDD
-
---
 
 ## An example if you will
+- Drupal and DDD aka DDDD
 
 --
+
+<!-- .slide: data-background="./images/bp-3.jpg" -->
 
 ## Requirements
 
@@ -370,12 +295,62 @@ Note:
 
 ## Identify domain objects
 
-- A submission aggregate root?
+- Use the building blocks
+
+--
+
+## Aggregate Roots
+
+- The submission
+
+Note:
+
+- A collection of objects bound by a root entity
+- E.g. A Commerce Order is an aggregate root, it contains line-item entities that you really only interact with via the order.
+- Ensures consistency of changes by preventing changes to contained objects from the outside
+
+--
+
+## Entities
+
 - A user entity?
-- An address value object?
-- A submitter service?
-- A submission view model value object?
-- A submission data transfer object?
+
+Note:
+
+- You know this well. 
+- These do have an identity
+
+--
+
+## Value objects
+
+- An address
+
+Note:
+
+- Most text books use Money as an example, it comprises a currency and a value
+- No concept of identity
+- But concept of equality
+- In the past in Drupal we've used keyed arrays for this, but the tide is changing
+
+--
+
+## Services
+
+- A submitter service
+
+Note:
+
+- Specialized operations that have no home in an entity/value object
+- Pattern seen in Drupal 8
+- Cache bins
+
+--
+
+## Model the domain
+
+- A submission view builder?
+- A submission data-transfer-object
 
 Note:
 
@@ -395,6 +370,21 @@ Note:
 
 --
 
+## Other DDD building blocks
+
+- Repositories
+- Factories
+- Domain events
+
+Note:
+
+- Repositories - responsible for retrieval of entities (ala storage handler)
+- Factories - if creating object requires logic - e.g. logger factory
+- Domain events - triggers when action happens, relevant to Domain
+- InvoiceWasPaid, ProductWasShipped
+
+--
+
 ## What always happens:
 ### - Your requirements change
 
@@ -406,7 +396,7 @@ Note:
 
 --
 
-## A real world example
+## Back to our example
 
 - A valid AU address:
 - You must provide either Street Address, with optional Unit/Level/Lot or Property Name or Postal Box Number
@@ -474,7 +464,7 @@ class SomeForm extends FormBase {
 
 Note:
 - getting better, still a bit to go
-- we can now test the validation *without* a form submission
+- KEY: we can now test the validation *without* a form submission
 
 --
 
@@ -723,5 +713,7 @@ https://www.flickr.com/photos/laradanielle/3628056534/</li><li>
 https://www.flickr.com/photos/melissawarhol/6202636338/</li><li>
 https://www.flickr.com/photos/niaid/14440817981/</li><li>
 https://www.flickr.com/photos/rvoegtli/5688343678</li><li>
-https://www.flickr.com/photos/lox/32878005/</li>
+https://www.flickr.com/photos/lox/32878005/</li><li>
+https://www.flickr.com/photos/mustangjoe/20437315996</li><li>
+https://www.flickr.com/photos/statelibraryqueensland/25478962321</li>
 </ul>
