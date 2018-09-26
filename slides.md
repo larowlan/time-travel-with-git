@@ -1,38 +1,13 @@
-<!-- .slide: data-background="./images/spaghetti.jpg" -->
+<!-- .slide: data-background="./images/bttf.jpg" -->
 
-## From spaghetti to lasagne - writing clean code for<br>Drupal 7 and 8 with<br>Domain Driven Design
+## Time travel with git
 
 Note:
 
 -
 
---
+---
 
-<!-- .slide: data-background="./images/spaghetti.jpg" -->
-
-## <del>From spaghetti to lasagne - writing clean code for<br>Drupal 7 and 8 with<br>Domain Driven Design</del>
-## How custom Drupal<br>development goes<br>straight to hell
-
---
-
-<!-- .slide: data-background="./images/spaghetti.jpg" -->
-
-## <del>From spaghetti to lasagne - writing clean code for<br>Drupal 7 and 8 with<br>Domain Driven Design</del>
-## <del>How custom Drupal<br>development goes<br>straight to hell</del>
-## Keeping Drupal's death grips off your code
-
---
-
-<!-- .slide: data-background="./images/spaghetti.jpg" -->
-
-## <del>From spaghetti to lasagne - writing clean code for<br>Drupal 7 and 8 with<br>Domain Driven Design</del>
-## <del>How custom Drupal<br>development goes<br>straight to hell</del>
-## <del>Keeping Drupal's death grips off your code</del>
-## The PNX approach to custom code
-
---
-
-<!-- .slide: data-background="./images/home.jpg" -->
 ## Who am I?
 
 @larowlan
@@ -40,680 +15,1293 @@ Note:
 Note:
 
 - by way of introduction
-- 8 years of Drupal
-- 450+ core patches
-- Maintain 4 core modules
-- 40+ contrib modules
+- Framework Manager for Drupal CMS
+- One of the 'big 10' open source projects
+- Runs 2% of the internet including some of the world's biggest sites
+- 10 years of Drupal
 - security team member
 - senior drupal dev at @pnx
 
---
-
-<!-- .slide: data-background="./images/spaghetti.jpg" -->
+---
 
 ## Session overview
 
 Note:
 
-- Quick intro to Domain Driven Design
-- How we keep business logic out of Drupal code at PNX
-- Effort vs benefit analysis for this approach.
+- Why you should be using git
+- How to use git
+- How git works
 
---
+---
 
-## What's this<br>Domain Driven Design<br>all about?
-
-Note:
-
-- Domain driven design is an approach to software development
-- Coined by Eric Evans in his 2004 book of the same name. 
-- Place the primary focus of development on the core business domain and domain logic.
-- Not going to go into great detail
-- You're here to learn about clean Drupal code, there are books and whole sessions on the topic, so we're going to skim over the theory quickly.
-
---
-
-## Key concepts
-
---
-
-## The domain
+## If you write code and don't use version control<br/><br/>You're doing it wrong.
 
 Note:
 
-- The subject area we're building the software for
+- this includes anything where you're working in text files
+- e.g svg, puppet, config files
 
---
+---
 
-## Ubiquitous language
-
-- Naming is hard
+## Why git
 
 Note:
 
-- Client (domain expert) and developer derive a common language to discuss the domain in
-- The same term can mean different things in different contexts (Node anyone)
+- Distributed version control, every clone of a repository is also a repository, no single point of failure
+- Non linear
+- Open source
+- From creator of Linux Kernel to ease collaboration on kernel development
+- Fast
+- There are other version control applications
+- Git is near ubiquitous
+- Just learn git
 
---
+---
 
-<!-- .slide: data-background="./images/d.jpg" -->
+## You might need git if...
 
-## An example if you will
-- Drupal and DDD aka DDDD
+---
 
---
+## You do this...
 
-<!-- .slide: data-background="./images/bp-3.jpg" -->
+- index.html
+- index.html.bak
+- index.html.bak1
 
-## Requirements
+---
 
-- Two step form
-- Step one collects user's name and address
-- Values validated according to business rules
-- Step two show's confirmation page
-- Submits collected details to external API
-- Shows user a ticket ID from response with confirmation message
+## Or this
 
---
+- specification-v1-mar-31.docx
+- specification-v2-final.docx
+- specification-v2-final-approved-by-anthony.docx
 
-## A naive approach (D8)
+---
+
+## Or this
 
 <pre><code class="php">
-class SomeForm extends FormBase {
-  public function buildForm() {
-    // This calls either buildStep1 or buildStep2 depending on form state.
-  }
-
-  protected function buildStep1() {
-    // Here you build all the forms by specifying the fields one by one.
-  }
-
-  protected function buildStep2() {
-    // Here you build the preview of the values for submission.
-  }
-
-  public function validateForm() {
-    // Here you call validateStep1 if appropriate.
-  }
-  
-  protected function validateStep1() {
-    // Here you validate the address is valid etc.
-  }
-
-  public function submitForm() {
-    // Here you just proxy to submitStep1 or 2 depending on form state.
-  }
-
-  protected function submitStep1() {
-    // Here you set form state to step 2 and rebuild the form.
-  }
-
-  protected function submitStep2() {
-    // Here you create the connection and submit to the external API.
-  }
-
-}
-</code></pre>
-
-Note:
-
-- Talk to the code.
-
---
-
-## A naive approach (D7)
-
-<pre><code class="php">
-function some_form() {
-  // This calls either some_form_step_1() or some_form_step_2() depending on form state.
-}
-
-function some_form_step1() {
-  // Here you build all the forms by specifying the fields one by one.
-}
-
-function some_form_step2() {
-  // Here you build the preview of the values for submission.
-}
-
-function some_form_validate() {
-  // Here you call some_form_validate_step1() if appropriate.
-}
-
-function some_form_validate_step1() {
-  // Here you validate the address is valid etc.
-}
-
-function some_form_submit() {
-  // Here you just proxy to some_form_submit_step1() or some_form_submit_step2() depending on form state.
-}
-
-function some_form_submit_step1() {
-  // Here you set form state to step 2 and rebuild the form.
-}
-
-function some_form_submit_step2() {
-  // Here you create the connection and submit to the external API.
-}
-
-
-</code></pre>
-
-Note:
-
-- My skin is crawling - is yours?
-
---
-
-<!-- .slide: data-background="./images/game-over.jpg" -->
-## This is the highpoint<br>of the design
-
-Note:
-
-- Is it even a high point?
-- So yeah, you met the requirements
-- But over time?
-- How do you test this?
-
---
-
-<!-- .slide: data-background="./images/downhill.jpg" -->
-## It's all downhill from here
-
-Note:
-
-- What if the requirements change?
-- How can you adapt?
-- Can you get fast feedback?
-- Do you submit against actual APIs to test?
-
---
-
-<!-- .slide: data-background="./images/virus.jpg" -->
-## A bit about frameworks
-
-Note:
-
-- See a framework is like a virus
-- It needs to infect you to live
-- It needs you to depend on it and use it
-- It can't wait to get its cold hands on you
-- Like a dealer giving out free samples
-- Once you're 'hooked' a framework is forever
-
---
-
-<!-- .slide: data-background="./images/zombie.jpg" -->
-## So back to our requirements
-
-Note:
-
-- See you've mixed presentation (Drupal) with business logic
-- You've trampled on your boundaries
-- Drupal has you in it's Death grips
-
---
-
-<!-- .slide: data-background="./images/lasagne.jpg" -->
-## Layered architecture
-
-Note:
-- In spaghetti architecture - everything is intertwined
-- In layered arch - information only travels one way
-- Drupal can know about your domain 
-- But not the other way
-
---
-
-<!-- .slide: data-background="./images/onion.jpg" -->
-## Drupal is just one layer
-
-- The UI layer
-- Drupal is not your application
-
-Note:
-- Drupal is just one way to interact with your domain
-- Tests are another
-- Command line is another
-- API may be another
-
---
-
-<!-- .slide: data-background="./images/wall.jpg" -->
-## Build a wall
-
-- composer is your friend
-
-Note:
-- To ensure information only flows one way
-- composer.json for your project src folder
-- Write domain objects in isolation
-- Composer project in D8
-- include autoload in settings.php in D7
-
---
-
-## Identify domain objects
-
-- Use the building blocks
-
---
-
-## Aggregate Roots
-
-- The submission
-
-Note:
-
-- A collection of objects bound by a root entity
-- E.g. A Commerce Order is an aggregate root, it contains line-item entities that you really only interact with via the order.
-- Ensures consistency of changes by preventing changes to contained objects from the outside
-
---
-
-## Entities
-
-- A user entity?
-
-Note:
-
-- You know this well. 
-- These do have an identity
-
---
-
-## Value objects
-
-- An address
-
-Note:
-
-- Most text books use Money as an example, it comprises a currency and a value
-- No concept of identity
-- But concept of equality
-- In the past in Drupal we've used keyed arrays for this, but the tide is changing
-
---
-
-## Services
-
-- A submitter service
-
-Note:
-
-- Specialized operations that have no home in an entity/value object
-- Pattern seen in Drupal 8
-- Cache bins
-
---
-
-## Model the domain
-
-- A submission view builder?
-- A submission data-transfer-object
-
-Note:
-
-- Model your code on the domain
-- Use terms that are ubiquitous
-- These will appear out of conversations with client
-
---
-
-## Beware anaemic<br>domain models
-
-Note:
-- Domain objects should be more than a bag with getters and setters
-- They should model your domain
-- They should contain behaviour
-- They should enforce requirements
-
---
-
-## Other DDD building blocks
-
-- Repositories
-- Factories
-- Domain events
-
-Note:
-
-- Repositories - responsible for retrieval of entities (ala storage handler)
-- Factories - if creating object requires logic - e.g. logger factory
-- Domain events - triggers when action happens, relevant to Domain
-- InvoiceWasPaid, ProductWasShipped
-
---
-
-## What always happens:
-### - Your requirements change
-
-Note:
-- client testing, things change
-- someone outside the project team tests their address and it isn't allowed
-- You know the joke, a QA tester walks into a bar 
-- Then she orders {0/9999/-1/NULL/lizard} beers.
-
---
-
-## Back to our example
-
-- A valid AU address:
-- You must provide either Street Address, with optional Unit/Level/Lot or Property Name or Postal Box Number
-- You must provide a suburb
-- Postcode must be either a 4 digit number or a three digit number starting with 8
-- State must be provided and match valid values
-- Street type must be provided if not a postal box and match valid values
-
---
-
-## Testing with <br><em>everything in the form</em><br> approach
-
-Note:
-- imagine testing each of those in an end-to-end test
-- because remember there is no concept of an address?
-- there is just $form_state['values']
-- the only way you can test is by submitting the form
-- again and again
-
---
-
-## Let's consider an<br>address value object
-
-- good
-
-Note:
-- Its something that has meaning in the domain
-- It has behaviour
-
---
-
-## Data transfer object
-
-- better
-- home for your validation logic
-
-Note:
-- take data from user input and convert into valid object
-- ensure your value objects and entities are always valid
-- Drupal needs to do this with entities/forms
-- Use an existing library (symfomy/validator)
-- Or keep it simple and roll your own
-
-
---
-
-## How does our code look now?
-
-<pre><code class="php">
-class SomeForm extends FormBase {
-
-  // ...
-
-  protected function validateStep1($form, FormStateInterface $form_state) {
-    $submissionAggregateDTO = SubmissionAggregate::fromUserValues($form_state->getValues());
-    foreach ($submissionAggregateDTO->getViolations() as $field_name => $message) {
-      $form_state->setErrorByName($field_name, $message);
-    }
-    $form_state->set('submission_dto', $submissionAggregateDTO);
-  }
-
-  // ...
-}
-</code></pre>
-
-Note:
-- getting better, still a bit to go
-- KEY: we can now test the validation *without* a form submission
-
---
-
-## Submitter service
-
-Note:
-- contract for how to send submission to API
-- so write a contract - an interface
-- type hint it
-
---
-
-## Services in Drupal 7 and 8
-
-- Drupal 7
-> - service_container.module
-> - registry_autoload.module
-- Drupal 8 - built in
-
-Note:
-- both have ways of modifying services at test time
-- what does this give you?
-
---
-
-## Revisiting the code.
-
-<pre><code class="php">
-class SomeForm extends FormBase {
-
-  protected $submitter;
-  protected $flash;
-  public function __construct(SubmitterInterface $submitter, ErrorDisplayInterface $flash) {
-    $this->submitter = $submitter;
-    $this->flash = $flash;
-  }
-  // ...
-
-  protected function submitStep1($form, FormStateInterface $form_state) {
-    $submissionDTO = $form_state->get('submission_dto');
-    $submission = $submissionDTO->toSubmission();
-    $result = $this->submitter->submit($submission);
-    if ($result->hasErrors()) {
-      $this->flash->displayErrors($result->getErrors());
-      return;
-    }
-    $form_state->setRedirect(...);
-  }
-
-  // ...
-}
-</code></pre>
-
---
-
-## Mocking
-
-<pre><code class="php">
-MockSubmitter implements SubmitterInterface {
-  public function submit(SubmissionIntereface $submission) {
-    // Do what you like here to validate your logic.
-  }
-}
-</code></pre>
-
-Note:
-- test your code can handle anything the service might throw at it
-- simulate all scenarios
-- without round trip to the actual service
-
---
-
-## Requirements change again
-
-Note:
-- We've now cleaned up the validation and submission
-- But not the form
-- client adds a new field
-- now you need to update your validation
-- and your entity
-- and your form
-- metadata is scattered
-
---
-
-## Enter annotations
-
-Note:
-- you've seen them in Drupal 8
-- comments with special meaning
-- now we decide we want to put metadata with objects
-- we don't want to put them in our domain, they're not a domain concern
-- but we can put them on our data transfer object
-
---
-
-## Form factory
-
-- internally we've built form factories
-<pre><code class="php">Formfactory->getFormForObject($some_object);</code></pre>
-- Works by reading annotations on properties
-<pre><code class="php">
-class JewelleryItem {
+// Commented out by John Feb 2018.
+// We don't need this at the moment, but will in July 2018.
+// $widget->addPriceRise(15);
+// $widget->recalculateTariff();
+// $page->updateWidget($widget);
  
-  /**
-   * The shape.
-   *
-   * @var string
-   * @Title("Shape")
-   * @FieldType("select")
-   * @Options("objectShapes")
-   * @WithEmpty(TRUE)
-   */
-  protected $shape;
-  //..
+</code></pre>
+
+---
+
+## Core concepts
+
+### Three states for files
+
+1. committed
+2. modified
+3. staged
+
+---
+
+![](https://git-scm.com/book/en/v2/images/areas.png)
+
+---
+
+## Get started: Installation
+
+- ✅ OSX: <pre>git --version</code>
+- 📦 Linux: git-core from your package manager
+- ⬇️ Windows: https://git-scm.com/download/win
+
+---
+
+## First time setup
+
+<pre><code class="bash">
+git config --global user.name "Beryl Johnson"
+git config --global user.email cray.z.nana@gmail.com
+</code></pre>
+
+---
+
+## Help - detailed
+
+<pre><code class="bash">
+git help <command>
+</code></pre>
+
+<pre><code class="bash">
+git help add
+</code></pre>
+
+---
+
+## Help - succinct
+
+<pre><code class="bash">
+git add -h
+</code></pre>
+
+<pre><code class="bash">
+usage: git add [<options>] [--] <pathspec>...
+
+    -n, --dry-run         dry run
+    -v, --verbose         be verbose
+
+    -i, --interactive     interactive picking
+    -p, --patch           select hunks interactively
+    -e, --edit            edit current diff and apply
+    -f, --force           allow adding otherwise ignored files
+    -u, --update          update tracked files
+    -N, --intent-to-add   record only the fact that the path will be added later
+    -A, --all             add changes from all tracked and untracked files
+    --ignore-removal      ignore paths removed in the working tree (same as --no-all)
+    --refresh             don't add, only refresh the index
+    --ignore-errors       just skip files which cannot be added because of errors
+    --ignore-missing      check if - even missing - files are ignored in dry run
+    --chmod <(+/-)x>      override the executable bit of the listed files
+</code></pre>
+
+---
+
+## Create your first repo
+
+<pre><code class="bash">
+mkdir -p ~/git/learning-git
+cd ~/git/learning-git
+git init
+</code></pre>
+
+<pre><code class="bash">
+Initialized empty Git repository in /Volumes/files/code/git/learning-git/.git/
+</code></pre>
+
+---
+
+## Basic flow
+
+![](https://git-scm.com/book/en/v2/images/lifecycle.png)
+
+---
+
+## Checking status
+
+<pre><code class="bash">
+git status
+</code></pre>
+
+<pre><code class="bash">
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+</code></pre>
+
+---
+
+## Adding a file
+
+- create a file with https://raw.githubusercontent.com/exercism/php/master/exercises/hello-world/hello-world.php
+<pre><code class="bash">
+wget https://raw.githubusercontent.com/exercism/php/master/exercises/hello-world/hello-world.php
+</code></pre>
+
+---
+
+## Adding a file continued
+
+<pre><code class="bash">
+git status
+</code></pre>
+
+<pre><code class="bash">
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+	hello-world.php
+
+nothing added to commit but untracked files present (use "git add" to track)
+</code></pre>
+
+---
+
+## Adding a file continued
+
+<pre><code class="bash">
+git add hello-world.php
+</code></pre> 
+
+<pre><code class="bash">
+git status
+</code></pre>
+
+<pre><code class="bash">
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+
+	new file:   hello-world.php
+</code></pre>
+
+---
+
+## Your first commit
+
+<pre><code class="bash">
+git commit -m "Added hello world feature"
+</code></pre>
+
+<pre><code class="bash">
+[master (root-commit) c3bd2d0] Added hello world feature
+ 1 file changed, 13 insertions(+)
+ create mode 100644 hello-world.php
+</code></pre>
+
+Note:
+
+- the sha
+- the stat
+
+---
+
+## Commit messages
+
+### do
+
+- describe what was changed
+- make it clear what is added
+- keep it succinct
+- be kind to your future self and colleagues
+- reference ticket numbers (use a convention)
+
+---
+
+## Commit messages
+
+### don't
+
+- "fixed"
+- write a novel
+- "changes"
+- "wip"
+
+---
+
+## Making changes
+
+- edit hello-world.php and make these changes
+
+<pre><code class="php">
+function helloWorld()
+{
+    echo "Hello world!";
 }
 </code></pre>
 
---
+---
 
-## Revisiting the code
+## Making changes
 
-<pre class="php"><code>
-class SomeForm extends FormBase {
-  //..
-  protected function buildStep1($form, FormStateInterface $formState) {
-    $form['submission'] = [
-      '#type' => 'object',
-      '#default_value' => $formState->get('submission_dto') ?: SubmissionAggregate::new(),
-    ];
+<pre><code class="bash">
+git status
+</code></pre>
+
+<pre><code class="bash">
+On branch master
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+	modified:   hello-world.php
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+---
+
+## Making changes
+
+<pre><code class="bash">
+git diff
+</code></pre>
+
+<pre><code class="diff">
+diff --git a/hello-world.php b/hello-world.php
+index 6f8ce23..72f3031 100644
+--- a/hello-world.php
++++ b/hello-world.php
+@@ -1,13 +1,7 @@
+ &lt;?php
+
+-//
+-// This is only a SKELETON file for the "Hello World" exercise.
+-// It's been provided as a convenience to get you started writing code faster.
+-//
+
+ function helloWorld()
+ {
+-    //
+-    // YOUR CODE GOES HERE
+-    //
++  echo "Hello world!";
+ }
+</code></pre>
+
+---
+
+## Making changes
+
+<pre><code class="bash">
+git add hello-world.php
+git status
+</code></pre>
+
+<pre><code class="bash">
+rowlandss-MacBook-Pro:learning-git rowlands$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD &lt;file&gt;..." to unstage)
+
+	modified:   hello-world.php
+
+</code></pre>
+
+---
+
+## Making changes
+
+<pre><code class="bash">
+git diff
+</code></pre>
+
+???
+
+<pre><code class="bash">
+git diff --staged
+</code></pre>
+
+<pre><code class="diff">
+diff --git a/hello-world.php b/hello-world.php
+index 6f8ce23..72f3031 100644
+--- a/hello-world.php
++++ b/hello-world.php
+@@ -1,13 +1,7 @@
+ &lt;?php
+
+-//
+-// This is only a SKELETON file for the "Hello World" exercise.
+-// It's been provided as a convenience to get you started writing code faster.
+-//
+
+ function helloWorld()
+ {
+-    //
+-    // YOUR CODE GOES HERE
+-    //
++  echo "Hello world!";
+ }
+</code></pre>
+
+---
+
+## Making changes
+
+<pre><code class="bash">
+git commit -m "Implemented hello-world"
+</code></pre>
+
+<pre><code class="bash">
+[master 4842ada] Implemented hello-world
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+</code></pre>
+
+---
+
+## Seeing our changes
+
+<pre><code class="bash">
+git log --oneline --decorate
+</code></pre>
+
+<pre><code class="bash">
+4842ada (HEAD -> master) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+Note:
+
+- Make note of the HEAD and master, more on them later
+- Notice the shas again, more on them later
+
+---
+
+## Undoing things
+
+### I forgot something 
+
+<pre><code class="bash">
+git add forgotten-file.txt
+git commit --amend
+</code></pre>
+
+---
+
+## Undoing things
+
+### My commit message was wrong
+
+<pre><code class="bash">
+git commit --amend
+</code></pre>
+
+---
+
+## Undoing things
+
+### I need to unstage a file
+
+<pre><code class="bash">
+git add file-i-should-not-add.txt
+git reset -- file-i-should-not-add.txt
+</code></pre>
+
+---
+
+## Undoing things
+
+### I don't want the changes anymore
+
+<pre><code class="bash">
+git checkout -- file-with-edits-i-do-not-want.txt
+</code></pre>
+
+---
+
+## Collaboration - existing and remote repositories
+
+### Existing repositories
+
+<pre><code class="bash">
+cd ~/git
+git clone https://github.com/larowlan/tl.git
+# If you have a github account
+git clone git@github.com:larowlan/tl.git
+</code></pre>
+
+---
+
+## Collaboration - remotes
+
+<pre><code class="bash">
+git remote -v
+</code></pre>
+
+<pre><code class="bash">
+origin	git@github.com:larowlan/tl.git (fetch)
+origin	git@github.com:larowlan/tl.git (push)
+</code></pre>
+
+Note:
+
+- origin is the default
+- you can name it anything
+
+---
+
+## Fetching remote commits
+
+<pre><code class="bash">
+git fetch origin
+</code></pre>
+
+---
+
+## Pushing your commits <br/>to remote
+
+<pre><code class="bash">
+git push origin master
+</code></pre>
+
+Note:
+
+- remote name
+- branch name
+
+---
+
+## Tags, branches
+
+- So before we saw each commit got a sha hash
+- Tags and branches are ways to name those commits
+- Tag is fixed in time (always points to one sha)
+- Branches follow the latest commit
+- E.g. master
+
+<pre><code class="bash">
+git log --oneline --decorate
+6a05994 (HEAD -> master) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+![](https://git-scm.com/book/en/v2/images/commits-and-parents.png)
+
+---
+
+![](https://git-scm.com/book/en/v2/images/branch-and-history.png)
+
+---
+
+## Branches
+
+- Branches allow development of features in parallel
+- Unlimited branches
+
+Note:
+
+- Think of it like a tree branch
+
+---
+
+## Creating a new branch
+
+<pre><code class="bash">
+git branch amazing-feature
+git log --oneline --decorate
+6a05994 (HEAD -> master, amazing-feature) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+![](https://git-scm.com/book/en/v2/images/two-branches.png)
+
+---
+
+## HEAD?
+
+<pre><code class="bash">
+git log --oneline --decorate
+6a05994 (HEAD -> master, amazing-feature) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+A special pointer that keeps track of what branch you're currently on 
+
+---
+
+![](https://git-scm.com/book/en/v2/images/head-to-master.png)
+
+---
+
+## Switching to the branch
+
+<pre><code class="bash">
+git checkout amazing-feature
+git log --oneline --decorate
+6a05994 (master, HEAD -> amazing-feature) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+![](https://git-scm.com/book/en/v2/images/head-to-testing.png)
+
+---
+
+## Create and switch in one go
+
+<pre><code class="bash">
+git checkout -b amazing-feature
+</code></pre>
+
+---
+
+## Working in a branch
+
+Edit hello-world like so:
+<pre><code class="php">
+function helloWorld($name = 'World')
+{
+  echo "Hello $name!";
+}
+</code></pre> 
+Commit it
+<pre><code class="bash">
+git add hello-world.php
+git commit -m "Can greet anyone"
+</code></pre>
+
+---
+
+## So what?
+
+<pre><code class="bash">
+git log --oneline --decorate
+997d247 (HEAD -> amazing-feature) Can greet anyone
+6a05994 (master) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+Note:
+
+- HEAD points to amazing feature
+- master does not have can greet anyone
+
+---
+
+![](https://git-scm.com/book/en/v2/images/advance-testing.png)
+
+---
+
+## Back to master?
+
+<pre><code class="bash">
+git checkout master
+git log --oneline --decorate
+6a05994 (HEAD -> master) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+![](https://git-scm.com/book/en/v2/images/checkout-master.png)
+
+---
+
+## Where is my greet anyone feature?
+
+<pre><code class="bash">
+git diff amazing-feature
+</code></pre>
+
+<pre><code class="diff">
+diff --git a/hello-world.php b/hello-world.php
+index d4f1f53..72f3031 100644
+--- a/hello-world.php
++++ b/hello-world.php
+@@ -1,7 +1,7 @@
+ &lt;?php
+
+
+-function helloWorld($name = 'World')
++function helloWorld()
+ {
+-  echo "Hello $name!";
++  echo "Hello world!";
+ }
+</code></pre>
+
+---
+
+## Parting ways
+
+Let's edit hello-world.php on master like so
+<pre><code class="php">
+function helloWorld($greeting = 'Hello')
+{
+  echo "$greeting world!";
+}
+</code></pre> 
+Commit it
+<pre><code class="bash">
+git add hello-world.php
+git commit -m "Can vary greeting"
+</code></pre>
+
+---
+
+## Parting ways
+
+<pre><code class="bash">
+git log --oneline --decorate
+41887a0 (HEAD -> master) Can vary greeting
+6a05994 Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+![](https://git-scm.com/book/en/v2/images/advance-master.png)
+
+---
+
+## Gee that chart is nice?
+
+<pre><code class="bash">
+git log --oneline --decorate --graph --all
+* 41887a0 (HEAD -> master) Can vary greeting
+| * 997d247 (amazing-feature) Can greet anyone
+|/
+* 6a05994 Implemented hello-world
+* c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## Merging
+
+<pre><code class="bash">
+git merge amazing-feature
+Auto-merging hello-world.php
+CONFLICT (content): Merge conflict in hello-world.php
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+
+---
+
+## Oh-oh
+
+<pre><code class="php">
+<<<<<<< HEAD
+function helloWorld($greeting = 'Hello')
+{
+  echo "$greeting world!";
+=======
+function helloWorld($name = 'World')
+{
+  echo "Hello $name!";
+>>>>>>> amazing-feature
+</code></pre>
+
+---
+
+## We manually edit
+
+new contents:
+
+<pre><code class="php">
+function helloWorld($greeting = 'Hello', $name = 'world')
+{
+  echo "$greeting $name!";
+}
+</code></pre>
+
+---
+
+## And commit
+
+<pre><code class="bash">
+git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add &lt;file&gt;..." to mark resolution)
+
+	both modified:   hello-world.php
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+---
+
+## Commit continued
+
+<pre><code class="bash">
+git add hello-world.php
+git commit
+[master 7b53116] Merge branch 'amazing-feature'
+</code></pre>
+
+---
+
+## Looking at our tree
+
+<pre><code class="bash">
+git log --oneline --decorate --all --graph
+*   7b53116 (HEAD -> master) Merge branch 'amazing-feature'
+|\
+| * 997d247 (amazing-feature) Can greet anyone
+* | 41887a0 Can vary greeting
+|/
+* 6a05994 Implemented hello-world
+* c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## Tagging
+
+We decide we want to roll a 1.0.0 and a 1.1.0
+<pre><code class="bash">
+git tag 1.1.0 -m "Vary greeting and name"
+git log --oneline --decorate
+7b53116 (HEAD -> master, tag: 1.1.0) Merge branch 'amazing-feature'
+41887a0 Can vary greeting
+997d247 (amazing-feature) Can greet anyone
+6a05994 Implemented hello world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## Tagging an earlier commit
+
+<pre><code class="bash">
+git tag 1.0.0 -m "Vary greeting and name" 6a05994
+git log --oneline --decorate
+7b53116 (HEAD -> master, tag: 1.1.0) Merge branch 'amazing-feature'
+41887a0 Can vary greeting
+997d247 (amazing-feature) Can greet anyone
+6a05994 (tag: 1.0.0) Implemented hello world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## Going back in time
+
+We can checkout code at any point and take a look around
+
+<pre><code class="bash">
+git checkout 1.0.0
+ Note: checking out '1.0.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b &lt;new-branch-name&gt;
+
+HEAD is now at 6a05994... Implemented hello world
+</code></pre>
+
+---
+
+## Detached HEAD?
+
+<pre><code class="bash">
+git checkout -b coding-standards
+Switched to a new branch 'coding-standards'
+git log --all --graph --decorate --oneline
+*   7b53116 (tag: 1.1.0, master) Merge branch 'amazing-feature'
+|\
+| * 997d247 (amazing-feature) Can greet anyone
+* | 41887a0 Can vary greeting
+|/
+* 6a05994 (HEAD -> coding-standards, tag: 1.0.0) Implemented hello world
+* c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+Make this change
+
+<pre><code class="php">
+/**
+ * Outputs hello world.
+ */
+function helloWorld() {
+  echo "Hello world!";
+}
+</code></pre>
+
+---
+
+## Commit
+
+<pre><code class="bash">
+git add hello-world.php
+git commit -m "Coding standards holy war"
+[coding-standards dbd5654] Coding standards holy war
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+</code></pre>
+
+---
+
+## Looking at the graph
+
+<pre><code class="bash">
+git checkout master
+git log --all --graph --decorate --oneline
+* dbd5654 (coding-standards) Coding standards holy war
+| *   7b53116 (HEAD -> master, tag: 1.1.0) Merge branch 'amazing-feature'
+| |\
+| | * 997d247 (amazing-feature) Can greet anyone
+| |/
+|/|
+| * 41887a0 Can vary greeting
+|/
+* 6a05994 (tag: 1.0.0) Implemented hello world
+* c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## Resetting
+
+- Think of this as the rewind button
+
+* rewrites history
+
+---
+
+<pre><code class="bash">
+git checkout amazing-feature
+git log --oneline --decorate
+997d247 (HEAD -> amazing-feature) Can greet anyone
+6a05994 (tag: 1.0.0) Implemented hello world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+<pre><code class="bash">
+git reset coding-standards
+Unstaged changes after reset:
+M	hello-world.php
+git log --oneline --decorate
+dbd5654 (HEAD -> coding-standards) Coding standards holy war
+6a05994 (tag: 1.0.0) Implemented hello world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+<pre><code class="bash">
+git diff
+</code></pre>
+
+<pre><code class="diff">
+diff --git a/hello-world.php b/hello-world.php
+index 96f669c..68bcf64 100644
+--- a/hello-world.php
++++ b/hello-world.php
+@@ -3,6 +3,6 @@
+ /**
+  * Outputs hello world.
+  */
+-function helloWorld() {
+-  echo "Hello world!";
++function helloWorld($name = 'World') {
++  echo "Hello $name!";
+ }
+</code></pre>
+
+---
+
+## history is rewritten
+
+- Our changes are still there, but the commit is gone
+
+---
+
+## hard reset
+
+<pre><code class="bash">
+git reset coding-standards --hard
+HEAD is now at dbd5654 Coding standards holy war
+git diff
+</code></pre>
+
+- our changes are gone...
+
+---
+
+## hard reset
+
+- ...from this branch
+
+<pre><code class="bash">
+git show 997d247
+</code></pre>
+
+<pre><code class="diff">
+commit b2a6a02a69ea01071483f36dd495020ffd0cf99a
+Author: Lee Rowlands &lt;lee.rowlands@previousnext.com.au&gt;
+Date:   Thu Sep 20 11:22:39 2018 +1000
+
+    Can greet anyone
+
+diff --git a/hello-world.php b/hello-world.php
+index 96f669c..68bcf64 100644
+--- a/hello-world.php
++++ b/hello-world.php
+@@ -3,6 +3,6 @@
+ /**
+  * Outputs hello world.
+  */
+-function helloWorld() {
+-  echo "Hello world!";
++function helloWorld($name = 'World') {
++  echo "Hello $name!";
+ }
+</code></pre>
+
+---
+
+## resetting again
+
+<pre><code class="bash">
+git reset 997d247 --hard
+git log --oneline --decorate
+997d247 (HEAD -> amazing-feature) Can greet anyone
+6a05994 (tag: 1.0.0) Implemented hello world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## reset summary
+
+* reset moves the pointer around without changing files
+* reset --hard moves the pointer and changes files
+
+---
+
+## Rebasing
+
+Think of this as rewind + replay
+
+* rewrites history
+
+---
+
+<pre><code class="bash">
+git checkout amazing-feature
+Switched to branch 'amazing-feature'
+git log --oneline --decorate
+997d247 (HEAD -> amazing-feature) Can greet anyone
+6a05994 (tag: 1.0.0) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+<pre><code class="bash">
+git rebase coding-standards
+First, rewinding head to replay your work on top of it...
+Applying: Can greet anyone
+Using index info to reconstruct a base tree...
+M	hello-world.php
+Falling back to patching base and 3-way merge...
+Auto-merging hello-world.php
+CONFLICT (content): Merge conflict in hello-world.php
+error: Failed to merge in the changes.
+Patch failed at 0001 Can greet anyone
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+Resolve all conflicts manually, mark them as resolved with
+"git add/rm &lt;conflicted_files&gt;", then run "git rebase --continue".
+You can instead skip this commit: run "git rebase --skip".
+To abort and get back to the state before "git rebase", run "git rebase --abort".
+</code></pre>
+
+---
+
+## Resolve conflicts
+
+<pre><code class="php">
+
+<<<<<<< HEAD
+/**
+ * Outputs hello world.
+ */
+function helloWorld() {
+  echo "Hello world!";
+=======
+
+function helloWorld($name = 'World')
+{
+  echo "Hello $name!";
+>>>>>>> Can greet anyone
+}
+</code></pre>
+
+---
+
+<pre><code class="php">
+
+/**
+ * Outputs hello world.
+ */
+function helloWorld($name = 'World') {
+  echo "Hello $name!";
+}
+</code></pre>
+
+---
+
+## Finish rebase
+
+<pre><code class="bash">
+git add hello-world.php
+git rebase --continue
+Applying: Can greet anyone
+</code></pre>
+
+---
+
+## Rebasing creates new <br/>commits
+
+### before
+<pre><code class="bash">
+997d247 (HEAD -> amazing-feature) Can greet anyone
+6a05994 (tag: 1.0.0) Implemented hello-world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+### after
+
+<pre><code class="bash">
+b2a6a02 (HEAD -> amazing-feature) Can greet anyone
+dbd5654 (coding-standards) Coding standards holy war
+6a05994 (tag: 1.0.0) Implemented hello world
+c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## the full tree
+
+<pre><code class="bash">
+git log --all --graph --decorate --oneline
+* b2a6a02 (HEAD -> amazing-feature) Can greet anyone
+* dbd5654 (coding-standards) Coding standards holy war
+| *   7b53116 (tag: 1.1.0, master) Merge branch 'amazing-feature'
+| |\
+| | * 997d247 Can greet anyone
+| |/
+|/|
+| * 41887a0 Can vary greeting
+|/
+* 6a05994 (tag: 1.0.0) Implemented hello world
+* c3bd2d0 Added hello world feature
+</code></pre>
+
+---
+
+## Rebasing tips
+
+- rebase onto tip before merging, so you get linear commits
+- don't rebase things others may have pulled to their local - you're rewriting history
+- use the <code>-i</code> flag to reorder, squash, drop and rename commits 💪
+
+---
+
+## The Blame game
+
+<pre><code class="bash">
+git checkout master
+git blame hello-world.php
+</code></pre>
+
+<pre><code class="bash">
+^c3bd2d0 (Lee Rowlands 2018-09-20 10:24:36 +1000 1) &lt;?php
+^c3bd2d0 (Lee Rowlands 2018-09-20 10:24:36 +1000 2)
+^c3bd2d0 (Lee Rowlands 2018-09-20 10:24:36 +1000 3)
+7b53116c (Lee Rowlands 2018-09-20 11:34:09 +1000 4) function helloWorld($greeting = 'Hello', $name = 'world')
+^c3bd2d0 (Lee Rowlands 2018-09-20 10:24:36 +1000 5) {
+7b53116c (Lee Rowlands 2018-09-20 11:34:09 +1000 6)   echo "$greeting $name!";
+^c3bd2d0 (Lee Rowlands 2018-09-20 10:24:36 +1000 7) }
+</code></pre>
+
+---
+
+## Viewing the diff of a sha
+
+<pre><code class="bash">
+git show 7b53116c
+</code></pre>
+
+<pre><code class="diff">
+commit 7b53116c9698277ca12332ed8db1392944d70a42 (HEAD -> master, tag: 1.1.0)
+Merge: 41887a0 997d247
+Author: Lee Rowlands &lt;lee.rowlands@previousnext.com.au&gt;
+Date:   Thu Sep 20 11:34:09 2018 +1000
+
+    Merge branch 'amazing-feature'
+
+diff --cc hello-world.php
+index a21d0d9,d4f1f53..3680758
+--- a/hello-world.php
++++ b/hello-world.php
+@@@ -1,7 -1,7 +1,7 @@@
+  &lt;?php
+
+
+- function helloWorld($greeting = 'Hello')
+ -function helloWorld($name = 'World')
+++function helloWorld($greeting = 'Hello', $name = 'world')
+  {
+-   echo "$greeting world!";
+ -  echo "Hello $name!";
+++  echo "$greeting $name!";
   }
-  //..
-}
 </code></pre>
 
-Note:
-- type => object
-- default_value => from previous submission or new 
-- form factory builds out the fapi stuff (obviously this is Drupal)
-- you can do the same with entities that you need field api/views/search api
+---
 
---
+## or just the files
 
-## View models
+<pre><code class="bash">
+git show 7b53116c --name-only
+commit 7b53116c9698277ca12332ed8db1392944d70a42 (HEAD -> master, tag: 1.1.0)
+Merge: 41887a0 997d247
+Author: Lee Rowlands &<lt;lee.rowlands@previousnext.com.au&gt;>
+Date:   Thu Sep 20 11:34:09 2018 +1000
 
-- remember the preview on step 2?
-<pre class="php"><code>
-function somemodule_theme() {
-  return [
-    'someobject' => [
-      'variables' => ['someobject' => NULL],
-    ],
-  ];
-}
+    Merge branch 'amazing-feature'
+
+hello-world.php
 </code></pre>
 
-Note:
-- think of it as a cut-down version of the entity for formatting sake
-- avoid logic in your controller/template
-- avoid presentation logic in your domain object
-- single responsibility - take a domain object and apply presentation logic
-- integrates with Drupal theme system well, theme hook, one variable, the view model
-- twig supports methods
-- for d7, you need to call getters direct
+---
 
---
+## or just one file
 
-## View models
-<pre class="twig"><code>
-<div class="submission">
-  <div class="submission__subject">{{ submission.getSubject }}</div>
-  ...
-</div>
+<pre><code class="bash">
+git show 7b53116c -- /path/to/some/file
 </code></pre>
 
---
+---
 
-## What about integration tests?
+## Bisect
 
-Note:
-- you need to have at least one test to make sure the wiring is correct
-- but this should be the minority of tests in your suite
-- testing pyramid
+- find out when things broke 💪
+- best if you have a test suite
+- which commit introduced a bug
+- tell git which is a good commit
+- which is a bad
+- it will go forward and backward in commits
+- you test and tell it if the commit is good/bad
+- it will pinpoint the commit that introduced the bug
 
---
+---
 
-## Are we doing this in <br>production?
+## Reverting
 
-Note:
-- Yes including D7
+- reverse a commit but retain in the history
+- use this instead of reset when the commit has been pushed
 
---
+<pre><code class="bash">
+git revert 9823abf
+</code></pre>
 
-## Sounds like effort?
+---
 
-Note:
-- Yes it is
-- Suited to complex projects
-- Pays for itself in the long run
+## Resources
 
---
+- The git book - https://git-scm.com/book/en/v2
 
-## The payoff
-
-From a D7 site<br>
-![](./images/phpunit.png)
-
---
-
-## CQRS in Drupal*
-
-- aka how do I build views of Domain objects without SQL
-
-<pre>* bonus material</pre>
-
-Note:
-- if you're doing entity API integration (similar annotation approach), loading entities is being repo
-- i.e. not in Drupal
-- but you need views.
-- search api
-- build reporting/uis with views, but without bending your entities to Drupal
-- store them anywhere (no need for SQL)(tests above are stored in dynamodb)
-- write projection is different to read projection (Search api)
-
---
-
-## Questions & Resources?
-
-- https://www.youtube.com/watch?v=QaIGN_cTcc8
-- https://www.youtube.com/watch?v=K1EJBmwg9EQ
-- https://www.youtube.com/watch?v=bTawx0TGIj8
-- https://leanpub.com/ddd-in-php (worth the money)
-- https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215
-- ping me on irc in #drupal-au to discuss more
-
---
+---
 
 ## Image credits
 
 <ul class="tight">
-<li>https://www.flickr.com/photos/145281386@N08/31948574674/</li><li>
-https://www.flickr.com/photos/le-topographe/2740566971/</li><li>
-https://www.flickr.com/photos/calsidyrose/20333492154/</li><li>
-https://www.flickr.com/photos/photographrdotnet/4604914266/</li><li>
-https://www.flickr.com/photos/laradanielle/3628056534/</li><li>
-https://www.flickr.com/photos/melissawarhol/6202636338/</li><li>
-https://www.flickr.com/photos/niaid/14440817981/</li><li>
-https://www.flickr.com/photos/rvoegtli/5688343678</li><li>
-https://www.flickr.com/photos/lox/32878005/</li><li>
-https://www.flickr.com/photos/mustangjoe/20437315996</li><li>
-https://www.flickr.com/photos/statelibraryqueensland/25478962321</li>
+<li>http://time.com/3943784/back-to-the-future-theories/</li>
+<li>https://git-scm.com/book</li>
 </ul>
