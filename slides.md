@@ -26,6 +26,8 @@ Note:
 
 ## Session overview
 
+larowlan.github.io/time-travel-with-git
+
 Note:
 
 - Why you should be using git
